@@ -34,7 +34,7 @@ export function Logo({ className = "" }: { className?: string }) {
           <circle cx="16.5" cy="16.5" r="2.4" fill="#f97316" />
         </svg>
       </span>
-      <span className="text-xl font-extrabold tracking-tight">
+      <span className="font-brand text-2xl font-extrabold tracking-tight">
         <span className="text-leaf-700">Fruit</span>
         <span className="text-orange-500">Z</span>
         <span className="text-leaf-700">en</span>
