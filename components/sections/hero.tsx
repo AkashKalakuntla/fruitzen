@@ -71,7 +71,7 @@ export function Hero() {
             width={1600}
             height={264}
             priority
-            className="mx-auto h-auto w-[min(82vw,760px)]"
+            className="mx-auto h-auto w-[60vw] sm:w-[min(82vw,760px)]"
           />
         </motion.h1>
 
