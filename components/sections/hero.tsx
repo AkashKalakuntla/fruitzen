@@ -28,23 +28,12 @@ export function Hero() {
       ref={ref}
       className="relative flex min-h-[100svh] items-center justify-center overflow-hidden bg-cream"
     >
-      {/* Large blurred fruit-color glows — gently breathing for ambience */}
+      {/* Large blurred fruit-color glows for depth (static — animating huge
+          blurred elements causes repaint flicker) */}
       <div className="pointer-events-none absolute inset-0 -z-20">
-        <motion.div
-          className="absolute -left-[10%] top-[6%] h-[42rem] w-[42rem] rounded-full bg-orange-300/35 blur-[140px]"
-          animate={{ opacity: [0.7, 1, 0.7], scale: [1, 1.08, 1] }}
-          transition={{ duration: 11, repeat: Infinity, ease: "easeInOut" }}
-        />
-        <motion.div
-          className="absolute right-[2%] top-[20%] h-[40rem] w-[40rem] rounded-full bg-leaf-300/45 blur-[150px]"
-          animate={{ opacity: [0.8, 1, 0.8], scale: [1.05, 1, 1.05] }}
-          transition={{ duration: 13, repeat: Infinity, ease: "easeInOut" }}
-        />
-        <motion.div
-          className="absolute bottom-[-12%] left-[28%] h-[38rem] w-[38rem] rounded-full bg-melon/25 blur-[150px]"
-          animate={{ opacity: [0.6, 0.9, 0.6], scale: [1, 1.1, 1] }}
-          transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-        />
+        <div className="absolute -left-[10%] top-[6%] h-[42rem] w-[42rem] rounded-full bg-orange-300/30 blur-[140px]" />
+        <div className="absolute right-[2%] top-[20%] h-[40rem] w-[40rem] rounded-full bg-leaf-300/40 blur-[150px]" />
+        <div className="absolute bottom-[-12%] left-[28%] h-[38rem] w-[38rem] rounded-full bg-melon/25 blur-[150px]" />
       </div>
 
       {/* Hero Fruit Orbit System */}
