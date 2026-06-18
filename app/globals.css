@@ -1,26 +1,185 @@
 @import "tailwindcss";
 
+/*
+  FruitZen — premium wellness brand design system.
+  Primary #22c55e · Dark #166534 · Accent #f97316 · warm-white backgrounds.
+*/
+
+@theme {
+  /* Green scale centred on the brand primary #22c55e */
+  --color-leaf-50: #f0fdf4;
+  --color-leaf-100: #dcfce7;
+  --color-leaf-200: #bbf7d0;
+  --color-leaf-300: #86efac;
+  --color-leaf-400: #4ade80;
+  --color-leaf-500: #22c55e; /* primary */
+  --color-leaf-600: #16a34a;
+  --color-leaf-700: #15803d;
+  --color-leaf-800: #166534; /* dark green */
+  --color-leaf-900: #14532d;
+  --color-leaf-950: #0a2e18;
+
+  /* Accent orange */
+  --color-orange-50: #fff7ed;
+  --color-orange-100: #ffedd5;
+  --color-orange-300: #fdba74;
+  --color-orange-400: #fb923c;
+  --color-orange-500: #f97316; /* accent */
+  --color-orange-600: #ea580c;
+  --color-orange-700: #c2410c;
+
+  /* Supporting fruit hues */
+  --color-melon: #fb6f92;
+  --color-kiwi: #8bc34a;
+  --color-lemon: #fde047;
+  --color-mint: #34d399;
+
+  /* Warm-white surfaces */
+  --color-cream: #fffdf9;
+  --color-cream-deep: #f7f4ec;
+  --color-ink: #0c1f15;
+
+  --color-background: var(--color-cream);
+  --color-foreground: var(--color-ink);
+
+  --font-sans: var(--font-body-family), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-display-family), ui-sans-serif, system-ui, sans-serif;
+
+  --radius-card: 1.75rem;
+
+  /* Motion */
+  --animate-spin-slow: spin 22s linear infinite;
+  --animate-spin-slower: spin 40s linear infinite;
+  --animate-float: float 7s ease-in-out infinite;
+  --animate-float-slow: float 11s ease-in-out infinite;
+  --animate-blob: blob 18s ease-in-out infinite;
+  --animate-marquee: marquee 32s linear infinite;
+  --animate-shimmer: shimmer 2.6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-16px) rotate(4deg); }
+}
+@keyframes blob {
+  0%, 100% { border-radius: 42% 58% 63% 37% / 41% 44% 56% 59%; transform: translate(0, 0) rotate(0deg); }
+  33% { border-radius: 58% 42% 38% 62% / 63% 38% 62% 37%; transform: translate(24px, -18px) rotate(8deg); }
+  66% { border-radius: 38% 62% 58% 42% / 45% 62% 38% 55%; transform: translate(-18px, 14px) rotate(-6deg); }
+}
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@keyframes shimmer {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.85; }
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --background: var(--color-cream);
+  --foreground: var(--color-ink);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body-family), ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, .font-display {
+  font-family: var(--font-display-family), ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: -0.02em;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
+/* ---------- Reusable brand utilities ---------- */
+
+@utility text-balance {
+  text-wrap: balance;
+}
+
+/* Glassmorphism */
+@utility glass {
+  background: color-mix(in srgb, white 62%, transparent);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  border: 1px solid color-mix(in srgb, white 55%, transparent);
+}
+@utility glass-dark {
+  background: color-mix(in srgb, var(--color-leaf-950) 45%, transparent);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  border: 1px solid color-mix(in srgb, white 14%, transparent);
+}
+
+/* Gradient text */
+@utility text-gradient {
+  background: linear-gradient(120deg, var(--color-leaf-600), var(--color-leaf-400) 55%, var(--color-orange-400));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Slowly panning gradient for the hero wordmark */
+.animate-text-gradient {
+  background-size: 220% 220%;
+  animation: text-gradient-pan 8s ease-in-out infinite;
+}
+@keyframes text-gradient-pan {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* Animated light sweep for primary buttons */
+.shine {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.shine::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  left: -150%;
+  width: 55%;
+  background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+  transform: skewX(-20deg);
+  z-index: -1;
+}
+.shine:hover::before {
+  animation: shine-sweep 0.85s ease;
+}
+@keyframes shine-sweep {
+  to { left: 160%; }
+}
+
+/* Subtle dotted texture for dark sections */
+@utility bg-dots {
+  background-image: radial-gradient(color-mix(in srgb, white 10%, transparent) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 11px; }
+::-webkit-scrollbar-track { background: var(--color-cream-deep); }
+::-webkit-scrollbar-thumb {
+  background: var(--color-leaf-300);
+  border-radius: 999px;
+  border: 3px solid var(--color-cream-deep);
+}
+::-webkit-scrollbar-thumb:hover { background: var(--color-leaf-400); }
+
+/* Accessibility: honour reduced-motion everywhere */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
