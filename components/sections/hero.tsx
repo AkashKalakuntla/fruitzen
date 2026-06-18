@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ChevronDown, MapPin, MessageCircle, Star, Dumbbell } from "lucide-react";
@@ -73,11 +74,16 @@ export function Hero() {
           initial={{ opacity: 0, y: 40, filter: "blur(12px)" }}
           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           transition={{ duration: 1, ease: easePremium, delay: 0.1 }}
-          className="font-brand mt-7 text-[5.5rem] font-extrabold leading-[0.9] tracking-tight sm:text-9xl lg:text-[12rem]"
+          className="mt-7"
         >
-          <span className="text-leaf-700">Fruit</span>
-          <span className="text-orange-500">Z</span>
-          <span className="text-leaf-700">en</span>
+          <Image
+            src="/fruitzen-logo.webp"
+            alt="FruitZen"
+            width={1600}
+            height={264}
+            priority
+            className="mx-auto h-auto w-[min(90vw,780px)]"
+          />
         </motion.h1>
 
         <motion.p

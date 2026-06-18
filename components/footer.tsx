@@ -10,7 +10,7 @@ export function Footer() {
       <div className="relative mx-auto w-full max-w-6xl px-5 py-16 sm:px-8">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr]">
           <div className="space-y-4">
-            <Logo className="[&_span]:text-white" />
+            <Logo variant="light" />
             <p className="max-w-xs text-sm leading-6 text-white/60">
               {site.description}
             </p>
