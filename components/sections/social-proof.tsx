@@ -43,10 +43,10 @@ export function SocialProof() {
             <div className="my-6 h-px bg-gradient-to-r from-transparent via-leaf-200 to-transparent" />
 
             {/* Animated counters */}
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-3 gap-2 sm:gap-4">
               {stats.map((s) => (
                 <div key={s.label} className="text-center">
-                  <p className="text-3xl font-extrabold tracking-tight text-gradient sm:text-5xl">
+                  <p className="text-2xl font-extrabold tracking-tight text-gradient sm:text-5xl">
                     <Counter to={s.to} suffix={s.suffix} />
                   </p>
                   <p className="mt-1 text-xs font-medium text-ink/55 sm:text-sm">

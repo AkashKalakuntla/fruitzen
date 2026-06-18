@@ -68,7 +68,7 @@ export function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -12 }}
             transition={{ duration: 0.25 }}
-            className="glass absolute inset-x-3 top-[4.5rem] rounded-3xl p-3 shadow-xl lg:hidden"
+            className="absolute inset-x-3 top-[4.5rem] rounded-3xl border border-leaf-100 bg-cream/98 p-3 shadow-2xl backdrop-blur-xl lg:hidden"
           >
             {navLinks.map((link) => (
               <a
