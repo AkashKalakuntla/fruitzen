@@ -41,6 +41,7 @@ type AssetCfg = {
   rot: number;
   opacity: number;
   blur?: number;
+  hideMobile?: boolean;
 };
 
 // Framing composition across 3 depth tiers (fruit sized down ~30% so the
@@ -50,13 +51,13 @@ const ASSETS: AssetCfg[] = [
   { src: F.kiwi, pos: { top: "-4%", left: "-3%" }, size: "clamp(120px,17vw,270px)", depth: 0.26, drift: 26, dur: 18, delay: 0, rot: 5, opacity: 0.18, blur: 9 },
   { src: F.watermelon, pos: { bottom: "-8%", right: "-4%" }, size: "clamp(135px,18vw,300px)", depth: 0.22, drift: 20, dur: 20, delay: 2, rot: 5, opacity: 0.15, blur: 10 },
   // middle layer — medium, framing
-  { src: F.kiwi, pos: { top: "12%", right: "10%" }, size: "clamp(66px,7.6vw,124px)", depth: 0.9, drift: 68, dur: 9, delay: 0.3, rot: 9, opacity: 0.98 },
+  { src: F.kiwi, pos: { top: "12%", right: "10%" }, size: "clamp(66px,7.6vw,124px)", depth: 0.9, drift: 68, dur: 9, delay: 0.3, rot: 9, opacity: 0.98, hideMobile: true },
   { src: F.watermelon, pos: { top: "45%", right: "5%" }, size: "clamp(54px,6.3vw,98px)", depth: 1.05, drift: 96, dur: 10.5, delay: 1, rot: -11, opacity: 0.98 },
-  { src: F.mintSprig, pos: { top: "15%", left: "7%" }, size: "clamp(58px,6.8vw,108px)", depth: 0.95, drift: 78, dur: 11, delay: 0.2, rot: 7, opacity: 0.95 },
+  { src: F.mintSprig, pos: { top: "15%", left: "7%" }, size: "clamp(58px,6.8vw,108px)", depth: 0.95, drift: 78, dur: 11, delay: 0.2, rot: 7, opacity: 0.95, hideMobile: true },
   // foreground layer — sharp, fastest parallax
   { src: F.orange, pos: { bottom: "15%", left: "7%" }, size: "clamp(68px,7.7vw,120px)", depth: 1.3, drift: 124, dur: 9.5, delay: 0.6, rot: -9, opacity: 0.98 },
-  { src: F.pom, pos: { top: "34%", right: "26%" }, size: "clamp(32px,3.6vw,58px)", depth: 1.45, drift: 145, dur: 8, delay: 0.9, rot: 13, opacity: 0.95 },
-  { src: F.pom, pos: { bottom: "26%", left: "24%" }, size: "clamp(28px,3.2vw,50px)", depth: 1.5, drift: 145, dur: 8.6, delay: 1.4, rot: -15, opacity: 0.9 },
+  { src: F.pom, pos: { top: "34%", right: "26%" }, size: "clamp(32px,3.6vw,58px)", depth: 1.45, drift: 145, dur: 8, delay: 0.9, rot: 13, opacity: 0.95, hideMobile: true },
+  { src: F.pom, pos: { bottom: "26%", left: "24%" }, size: "clamp(28px,3.2vw,50px)", depth: 1.5, drift: 145, dur: 8.6, delay: 1.4, rot: -15, opacity: 0.9, hideMobile: true },
 ];
 
 function shadow(blur?: number) {
@@ -83,7 +84,7 @@ function FloatingAsset({
   return (
     <motion.div
       style={{ position: "absolute", ...cfg.pos, width: cfg.size, x, y, opacity: cfg.opacity }}
-      className="will-change-transform"
+      className={`will-change-transform ${cfg.hideMobile ? "hidden sm:block" : ""}`}
     >
       <motion.div
         animate={reduce ? undefined : { y: [0, -15, 7, 0], rotate: [0, cfg.rot, -cfg.rot, 0] }}
@@ -153,7 +154,7 @@ export function HeroOrbit({ progress }: { progress: MotionValue<number> }) {
 
       {/* Kiwi crossing left → right */}
       <motion.div
-        className="absolute top-[22%] w-[clamp(30px,3.4vw,52px)]"
+        className="absolute top-[22%] hidden w-[clamp(30px,3.4vw,52px)] sm:block"
         style={{ filter: shadow() }}
         animate={reduce ? undefined : { x: ["-16vw", "118vw"] }}
         transition={{ duration: 24, repeat: Infinity, ease: "linear", delay: 4 }}
@@ -174,7 +175,7 @@ export function HeroOrbit({ progress }: { progress: MotionValue<number> }) {
       ].map((m, i) => (
         <motion.div
           key={i}
-          className="absolute"
+          className="absolute hidden sm:block"
           style={{ left: m.left, width: m.size, top: "-8%" }}
           animate={reduce ? undefined : { y: ["-8vh", "112vh"], x: [0, 24, -16, 8, 0] }}
           transition={{ duration: m.duration, delay: m.delay, repeat: Infinity, ease: "linear" }}

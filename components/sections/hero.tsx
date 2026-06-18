@@ -26,7 +26,7 @@ export function Hero() {
     <section
       id="home"
       ref={ref}
-      className="relative flex min-h-[100svh] items-center justify-center overflow-hidden bg-cream"
+      className="relative flex min-h-[100svh] flex-col items-center justify-center overflow-hidden bg-cream pt-28 pb-16 sm:pt-20"
     >
       {/* Large blurred fruit-color glows for depth (static — animating huge
           blurred elements causes repaint flicker) */}
@@ -71,7 +71,7 @@ export function Hero() {
             width={1600}
             height={264}
             priority
-            className="mx-auto h-auto w-[min(90vw,780px)]"
+            className="mx-auto h-auto w-[min(82vw,760px)]"
           />
         </motion.h1>
 
