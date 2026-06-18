@@ -36,7 +36,8 @@ export function Logo({ className = "" }: { className?: string }) {
       </span>
       <span className="text-xl font-extrabold tracking-tight">
         <span className="text-leaf-700">Fruit</span>
-        <span className="text-orange-500">Zen</span>
+        <span className="text-orange-500">Z</span>
+        <span className="text-leaf-700">en</span>
       </span>
     </Link>
   );

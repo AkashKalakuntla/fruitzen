@@ -73,9 +73,11 @@ export function Hero() {
           initial={{ opacity: 0, y: 40, filter: "blur(12px)" }}
           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           transition={{ duration: 1, ease: easePremium, delay: 0.1 }}
-          className="mt-7 text-[5.25rem] font-extrabold leading-[0.88] tracking-tighter text-gradient animate-text-gradient sm:text-9xl lg:text-[11.5rem]"
+          className="mt-7 text-[5.25rem] font-extrabold leading-[0.88] tracking-tighter sm:text-9xl lg:text-[11.5rem]"
         >
-          FruitZen
+          <span className="text-leaf-700">Fruit</span>
+          <span className="text-orange-500">Z</span>
+          <span className="text-leaf-700">en</span>
         </motion.h1>
 
         <motion.p
