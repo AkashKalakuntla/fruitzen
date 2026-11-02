@@ -5,9 +5,9 @@ import { getAllResources } from "@/lib/resources";
 import { SITE } from "@/lib/business";
 
 export const metadata: Metadata = {
-  title: { absolute: "Juice Guides & FAQs, Kukatpally | FruitZen" },
+  title: { absolute: "Juice Bar Guides & FAQs in Kukatpally, Hyderabad | FruitZen" },
   description:
-    "FruitZen guides: cold pressed juice in Kukatpally, protein shakes near JNTU, waffles, prices, timings and FAQs for our juice bar in Hyderabad.",
+    "FruitZen guides and FAQs: cold pressed juice in Kukatpally, protein shakes near JNTU, waffles, prices and timings for our juice bar in Kukatpally, Hyderabad.",
   alternates: { canonical: `${SITE}/resources` },
 };
 

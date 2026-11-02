@@ -9,12 +9,12 @@ import { site } from "@/lib/site";
 const MENU_URL = `${site.url}/menu`;
 
 export const metadata: Metadata = {
-  title: "Menu",
+  title: { absolute: "Juice & Waffle Menu with Prices in Kukatpally | FruitZen" },
   description:
     "The full FruitZen menu — fresh juices, cold-pressed juices, smoothies, shakes, mojitos, iced teas, cold coffees, waffles, momos, snacks and combos, with prices.",
   alternates: { canonical: "/menu" },
   openGraph: {
-    title: "Menu | FruitZen",
+    title: "Juice & Waffle Menu with Prices in Kukatpally | FruitZen",
     description:
       "The full FruitZen menu with prices — fresh and cold-pressed juices, smoothies, shakes, waffles, momos and combos in Kukatpally, Hyderabad.",
     url: MENU_URL,
