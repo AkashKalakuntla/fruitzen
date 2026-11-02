@@ -1,10 +1,14 @@
+import Link from "next/link";
 import { Phone, AtSign, MapPin, MessageCircle } from "lucide-react";
 import { Reveal } from "@/components/reveal";
 import { Button } from "@/components/ui/button";
+import { getResource } from "@/lib/resources";
 import { site } from "@/lib/site";
 
 export function Contact() {
   const { contact } = site;
+  // Only link the FAQ when that page is reachable (published in prod; draft in dev).
+  const showFaqLink = getResource("fruitzen-juice-bar-kukatpally-faq") !== null;
 
   const methods = [
     { icon: Phone, label: "Call", value: contact.phone, href: contact.phoneHref },
@@ -59,6 +63,18 @@ export function Contact() {
                     {contact.website}
                   </a>
                 </p>
+                {showFaqLink ? (
+                  <p className="mt-2 text-sm text-white/55">
+                    Questions? Read the{" "}
+                    <Link
+                      href="/resources/fruitzen-juice-bar-kukatpally-faq"
+                      className="font-semibold text-leaf-300 hover:underline"
+                    >
+                      FruitZen juice bar FAQ
+                    </Link>
+                    .
+                  </p>
+                ) : null}
 
                 <div className="mt-8">
                   <Button href={contact.mapsHref} variant="accent" size="lg">

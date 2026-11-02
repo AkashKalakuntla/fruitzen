@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { getAllResources } from "@/lib/resources";
 
 const SITE = "https://fruitzen.in";
 
@@ -7,7 +8,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     { url: SITE, lastModified: now, changeFrequency: "weekly", priority: 1 },
     { url: `${SITE}/menu`, lastModified: now, changeFrequency: "weekly", priority: 0.9 },
-    // Step 2 (T5–T6): /resources and each published /resources/<slug> are added here
-    // once lib/resources.ts and /content exist.
+    { url: `${SITE}/resources`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
+    // Only published resources are included (drafts are excluded in production).
+    ...getAllResources(false).map((r) => ({
+      url: `${SITE}${r.canonical_url}`,
+      lastModified: new Date(r.updated),
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+    })),
   ];
 }

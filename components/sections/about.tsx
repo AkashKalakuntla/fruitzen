@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useRef } from "react";
 import { useGSAP } from "@/lib/use-gsap";
 import gsap from "gsap";
@@ -17,7 +18,7 @@ const pillars = [
   { icon: HeartPulse, title: "Wellness Focused", body: "Built around how you want to feel." },
 ];
 
-export function About() {
+export function About({ showColdPressLink = false }: { showColdPressLink?: boolean }) {
   const root = useRef<HTMLDivElement>(null);
 
   useGSAP(
@@ -69,6 +70,18 @@ export function About() {
             mocktails, waffles and healthy snacks, made daily around real fruit
             and how you want to feel.
           </p>
+          {showColdPressLink ? (
+            <p className="mt-4 text-base text-ink/60">
+              New to pressing?{" "}
+              <Link
+                href="/resources/cold-pressed-juice-kukatpally"
+                className="font-semibold text-leaf-700 hover:underline"
+              >
+                Read about cold-pressed juice in Kukatpally
+              </Link>
+              .
+            </p>
+          ) : null}
         </Reveal>
 
         {/* Store photo */}

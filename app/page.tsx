@@ -7,14 +7,19 @@ import { Menu } from "@/components/sections/menu";
 import { Wellness } from "@/components/sections/wellness";
 import { Gallery } from "@/components/sections/gallery";
 import { Contact } from "@/components/sections/contact";
+import { getResource } from "@/lib/resources";
 
 export default function Home() {
+  // Only link the cold-pressed guide when that page is reachable
+  // (published in production; drafts are reachable in dev).
+  const showColdPressLink = getResource("cold-pressed-juice-kukatpally") !== null;
+
   return (
     <>
       <Hero />
       <SocialProof />
       <Marquee />
-      <About />
+      <About showColdPressLink={showColdPressLink} />
       <Why />
       <Menu />
       <Wellness />
