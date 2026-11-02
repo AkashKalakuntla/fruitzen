@@ -44,3 +44,7 @@ next-env.d.ts
 WhatsApp Image*.jpeg
 WhatsApp Video*.mp4
 FruitZen-Logo-transparent.png
+
+# AEO package artifacts (not site code)
+FruitZen-AEO-Developer-Brief.pdf
+FruitZen-AEO-Package.zip
