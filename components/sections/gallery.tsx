@@ -53,7 +53,7 @@ export function Gallery() {
                     <>
                       <Image
                         src={tile.kind === "photo" ? img(tile.photo, 700) : tile.src}
-                        alt={tile.caption}
+                        alt={`${tile.caption} — FruitZen, Kukatpally`}
                         fill
                         sizes="(max-width: 1024px) 50vw, 33vw"
                         className="object-cover transition-transform duration-700 group-hover:scale-110"

@@ -18,7 +18,7 @@ export function Menu() {
             The Menu
           </span>
           <h2 className="mt-4 text-4xl font-bold text-ink sm:text-5xl text-balance">
-            Fresh juices to loaded <span className="text-gradient">waffles</span>
+            What&apos;s on the FruitZen <span className="text-gradient">menu</span>?
           </h2>
           <p className="mt-4 text-lg leading-8 text-ink/60 text-balance">
             Juices, smoothies, shakes, mojitos, waffles, momos and combos — all
@@ -38,7 +38,7 @@ export function Menu() {
                 >
                   <Image
                     src={img(cat.photo, 600)}
-                    alt={cat.name}
+                    alt={`${cat.name} at FruitZen, Kukatpally`}
                     fill
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"

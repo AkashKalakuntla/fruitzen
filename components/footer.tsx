@@ -30,6 +30,12 @@ export function Footer() {
                 {link.label}
               </a>
             ))}
+            <a
+              href="/resources"
+              className="text-sm text-white/70 transition-colors hover:text-leaf-300"
+            >
+              Guides &amp; FAQs
+            </a>
           </nav>
 
           <div className="flex flex-col gap-2.5">

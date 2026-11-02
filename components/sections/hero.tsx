@@ -59,7 +59,7 @@ export function Hero() {
           </span>
         </motion.div>
 
-        <motion.h1
+        <motion.div
           initial={{ opacity: 0, y: 40, filter: "blur(12px)" }}
           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           transition={{ duration: 1, ease: easePremium, delay: 0.1 }}
@@ -67,12 +67,21 @@ export function Hero() {
         >
           <Image
             src="/fruitzen-logo.webp"
-            alt="FruitZen"
+            alt="FruitZen — fresh juice bar in Kukatpally, Hyderabad"
             width={1600}
             height={264}
             priority
             className="mx-auto h-auto w-[60vw] sm:w-[min(82vw,760px)]"
           />
+        </motion.div>
+
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: easePremium, delay: 0.2 }}
+          className="mx-auto mt-6 max-w-2xl text-2xl font-bold tracking-tight text-ink text-balance sm:text-3xl"
+        >
+          Fresh juices &amp; cold-pressed juice bar in Kukatpally, Hyderabad
         </motion.h1>
 
         <motion.p

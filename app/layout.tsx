@@ -4,7 +4,11 @@ import "./globals.css";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { ScrollProgress } from "@/components/scroll-progress";
+import JsonLd from "@/components/JsonLd";
+import { localBusinessJsonLd } from "@/lib/business";
 import { site } from "@/lib/site";
+
+const HOME_TITLE = "Fresh Juice Bar in Kukatpally, Hyderabad | FruitZen";
 
 const body = Inter({
   variable: "--font-body-family",
@@ -20,8 +24,8 @@ const display = Sora({
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: `${site.name} — ${site.tagline}`,
-    template: `%s · ${site.name}`,
+    default: HOME_TITLE,
+    template: `%s | ${site.name}`,
   },
   description: site.description,
   keywords: [
@@ -33,13 +37,27 @@ export const metadata: Metadata = {
     "Hyderabad",
     "FruitZen",
   ],
+  alternates: { canonical: "/" },
   openGraph: {
-    title: `${site.name} — ${site.tagline}`,
+    title: HOME_TITLE,
     description: site.description,
     url: site.url,
     siteName: site.name,
     locale: "en_IN",
     type: "website",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "FruitZen fresh juices, Kukatpally",
+      },
+    ],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { "max-snippet": -1, "max-image-preview": "large" },
   },
 };
 
@@ -51,6 +69,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${body.variable} ${display.variable} h-full`}>
       <body className="flex min-h-full flex-col">
+        <JsonLd data={localBusinessJsonLd()} />
         <ScrollProgress />
         <Navbar />
         <main className="flex-1">{children}</main>
