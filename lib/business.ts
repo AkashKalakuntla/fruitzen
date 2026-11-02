@@ -21,7 +21,8 @@ export const BUSINESS = {
   sameAs: [
     "https://www.instagram.com/fruitzen.in/",
     "https://www.google.com/maps?cid=9138060448527713805", // Google Business Profile
-    // TODO(owner): add Swiggy URL and Zomato URL
+    "https://www.zomato.com/hyderabad/fruitzen-1-kukatpally",
+    "https://www.swiggy.com/city/hyderabad/fruitzen-kukatpally-rest1428805",
   ],
 };
 
