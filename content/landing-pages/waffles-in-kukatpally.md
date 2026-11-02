@@ -4,7 +4,7 @@ title: "Waffles in Kukatpally, Hyderabad"
 slug: "waffles-in-kukatpally"
 type: "landing-page"
 segment: "students"
-status: "draft"
+status: "published"
 priority: 7
 wave: 1
 meta_title: "Waffles in Kukatpally, Hyderabad from ₹129 | FruitZen"

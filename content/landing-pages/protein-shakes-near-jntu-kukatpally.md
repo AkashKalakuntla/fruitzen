@@ -4,7 +4,7 @@ title: "Protein Shakes and Post-Workout Drinks near JNTU, Kukatpally"
 slug: "protein-shakes-near-jntu-kukatpally"
 type: "landing-page"
 segment: "fitness"
-status: "draft"
+status: "published"
 priority: 8
 wave: 1
 meta_title: "Protein Shakes near JNTU & KPHB, Kukatpally | FruitZen"

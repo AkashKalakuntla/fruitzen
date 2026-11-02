@@ -1,19 +1,19 @@
 {
   "total_pieces": 5,
   "by_status": {
-    "draft": 5,
+    "draft": 0,
     "review": 0,
-    "published": 0,
+    "published": 5,
     "needs-update": 0
   },
   "last_generated": "2026-11-02",
-  "last_published": null,
+  "last_published": "2026-11-03",
   "pages": [
     {
       "id": "p-004",
       "slug": "cold-pressed-vs-fresh-juice",
       "type": "blog-post",
-      "status": "draft",
+      "status": "published",
       "segment": "health",
       "primary_keyword": "cold pressed vs fresh juice",
       "created": "2026-11-02"
@@ -22,7 +22,7 @@
       "id": "p-003",
       "slug": "fruitzen-juice-bar-kukatpally-faq",
       "type": "faq",
-      "status": "draft",
+      "status": "published",
       "segment": "health",
       "primary_keyword": "juice bar kukatpally",
       "created": "2026-11-02"
@@ -31,7 +31,7 @@
       "id": "p-001",
       "slug": "cold-pressed-juice-kukatpally",
       "type": "landing-page",
-      "status": "draft",
+      "status": "published",
       "segment": "health",
       "primary_keyword": "cold pressed juice kukatpally",
       "created": "2026-11-02"
@@ -40,7 +40,7 @@
       "id": "p-002",
       "slug": "protein-shakes-near-jntu-kukatpally",
       "type": "landing-page",
-      "status": "draft",
+      "status": "published",
       "segment": "fitness",
       "primary_keyword": "protein shake near jntu",
       "created": "2026-11-02"
@@ -49,7 +49,7 @@
       "id": "p-005",
       "slug": "waffles-in-kukatpally",
       "type": "landing-page",
-      "status": "draft",
+      "status": "published",
       "segment": "students",
       "primary_keyword": "waffles in kukatpally",
       "created": "2026-11-02"

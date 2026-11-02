@@ -4,7 +4,7 @@ title: "FruitZen Juice Bar, Kukatpally: Frequently Asked Questions"
 slug: "fruitzen-juice-bar-kukatpally-faq"
 type: "faq"
 segment: "health"
-status: "draft"
+status: "published"
 priority: 9
 wave: 1
 meta_title: "Juice Bar in Kukatpally: Timings, Prices, FAQ | FruitZen"

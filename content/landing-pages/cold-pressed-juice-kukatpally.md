@@ -4,7 +4,7 @@ title: "Cold Pressed Juice in Kukatpally, Hyderabad"
 slug: "cold-pressed-juice-kukatpally"
 type: "landing-page"
 segment: "health"
-status: "draft"
+status: "published"
 priority: 9
 wave: 1
 meta_title: "Cold Pressed Juice in Kukatpally, Hyderabad | FruitZen"

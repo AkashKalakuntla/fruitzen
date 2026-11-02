@@ -4,7 +4,7 @@ title: "Cold Pressed vs Fresh Juice: What's the Difference?"
 slug: "cold-pressed-vs-fresh-juice"
 type: "blog-post"
 segment: "health"
-status: "draft"
+status: "published"
 priority: 7
 wave: 1
 meta_title: "Cold Pressed vs Fresh Juice (2026 Guide) | FruitZen"
