@@ -62,7 +62,7 @@ export function About({ showColdPressLink = false }: { showColdPressLink?: boole
             Our Craft
           </span>
           <h2 className="mt-4 text-4xl font-bold text-ink sm:text-5xl text-balance">
-            From fruit to cup, <span className="text-gradient">crafted fresh.</span>
+            What makes FruitZen juice <span className="text-gradient">fresh?</span>
           </h2>
           <p className="mt-5 text-lg leading-8 text-ink/60 text-balance">
             FruitZen is a modern wellness beverage brand in the heart of

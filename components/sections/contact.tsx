@@ -30,7 +30,7 @@ export function Contact() {
                   Come Visit
                 </span>
                 <h2 className="mt-4 text-4xl font-bold sm:text-5xl text-balance">
-                  Visit FruitZen Today
+                  Where is FruitZen in Kukatpally?
                 </h2>
                 <p className="mt-4 flex items-start gap-2 text-white/75">
                   <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-leaf-300" />

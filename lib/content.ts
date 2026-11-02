@@ -34,7 +34,6 @@ export const menuGroups: MenuGroup[] = [
     slug: "fresh-juices",
     name: "Fresh Juices",
     emoji: "🍊",
-    subtitle: "350 ml",
     items: [
       { name: "Banana", price: "₹50" },
       { name: "Watermelon", price: "₹50" },
@@ -73,7 +72,6 @@ export const menuGroups: MenuGroup[] = [
     slug: "smoothies",
     name: "Smoothies",
     emoji: "🥤",
-    subtitle: "350 ml",
     items: [
       { name: "Apple Banana", price: "₹109" },
       { name: "Banana Chocolate", price: "₹109" },
@@ -148,7 +146,7 @@ export const menuGroups: MenuGroup[] = [
     slug: "mojitos",
     name: "Mojitos",
     emoji: "🍹",
-    subtitle: "350 ml · all ₹70",
+    subtitle: "All ₹70",
     items: [
       { name: "Blue Curacao", price: "₹70" },
       { name: "Virgin", price: "₹70" },
@@ -166,7 +164,7 @@ export const menuGroups: MenuGroup[] = [
     slug: "iced-teas",
     name: "Iced Teas",
     emoji: "🧊",
-    subtitle: "350 ml · all ₹60",
+    subtitle: "All ₹60",
     items: [
       { name: "Classic Lemon & Mint", price: "₹60" },
       { name: "Watermelon", price: "₹60" },
@@ -182,7 +180,6 @@ export const menuGroups: MenuGroup[] = [
     slug: "cold-coffees",
     name: "Cold Coffees",
     emoji: "☕",
-    subtitle: "350 ml",
     items: [
       { name: "Classic Cold Coffee", price: "₹99" },
       { name: "Chocolate Cold Coffee", price: "₹109" },
@@ -345,16 +342,14 @@ export const whyFeatures: WhyFeature[] = [
 export type WellnessMetric = {
   icon: IconKey;
   label: string;
-  value: number;
-  suffix: string;
   blurb: string;
 };
 
 export const wellness: WellnessMetric[] = [
-  { icon: "zap", label: "Pre Workout Energy", value: 100, suffix: "%", blurb: "Clean, natural energy to power your session." },
-  { icon: "droplets", label: "Hydration", value: 6, suffix: "+", blurb: "Hydrating fruit blends to keep you going." },
-  { icon: "heart", label: "Recovery Drinks", value: 20, suffix: "g", blurb: "Protein-rich shakes for faster recovery." },
-  { icon: "leaf", label: "Cold Press Nutrition", value: 0, suffix: "g", blurb: "Zero refined sugar — real fruit only." },
+  { icon: "zap", label: "Pre-Workout Fuel", blurb: "Light juices like Mosambi or Watermelon before you train." },
+  { icon: "droplets", label: "Stay Hydrated", blurb: "Hydrating fruit blends and fresh juices, made to order." },
+  { icon: "heart", label: "Post-Workout Recovery", blurb: "Banana, oats and peanut-butter smoothies after a session." },
+  { icon: "leaf", label: "No Added Sugar", blurb: "Cold-pressed juices pressed to order, with no added sugar." },
 ];
 
 export type TimelineStep = {

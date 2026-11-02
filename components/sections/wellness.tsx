@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import { Reveal, RevealGroup, RevealItem } from "@/components/reveal";
-import { Counter } from "@/components/counter";
 import { Button } from "@/components/ui/button";
 import { iconMap } from "@/components/icons";
 import { wellness } from "@/lib/content";
@@ -53,11 +52,8 @@ export function Wellness() {
                     <span className="grid h-11 w-11 place-items-center rounded-xl bg-leaf-500/20 text-leaf-300">
                       <Icon className="h-6 w-6" />
                     </span>
-                    <p className="mt-5 text-4xl font-extrabold tracking-tight text-white">
-                      <Counter to={m.value} suffix={m.suffix} />
-                    </p>
-                    <p className="mt-1 font-semibold text-leaf-300">{m.label}</p>
-                    <p className="mt-1 text-sm leading-5 text-white/55">{m.blurb}</p>
+                    <p className="mt-5 text-xl font-bold tracking-tight text-white">{m.label}</p>
+                    <p className="mt-2 text-sm leading-6 text-white/60">{m.blurb}</p>
                   </motion.div>
                 </RevealItem>
               );

@@ -15,7 +15,7 @@ export function Why() {
             Why FruitZen
           </span>
           <h2 className="mt-4 text-4xl font-bold text-ink sm:text-5xl text-balance">
-            Built on quality you can <span className="text-gradient">taste</span>
+            Why choose <span className="text-gradient">FruitZen</span> in Kukatpally?
           </h2>
         </Reveal>
 

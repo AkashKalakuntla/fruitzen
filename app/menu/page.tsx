@@ -2,17 +2,58 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { FullMenu } from "@/components/sections/full-menu";
+import JsonLd from "@/components/JsonLd";
+import { menuGroups } from "@/lib/content";
 import { site } from "@/lib/site";
+
+const MENU_URL = `${site.url}/menu`;
 
 export const metadata: Metadata = {
   title: "Menu",
   description:
     "The full FruitZen menu — fresh juices, cold-pressed juices, smoothies, shakes, mojitos, iced teas, cold coffees, waffles, momos, snacks and combos, with prices.",
+  alternates: { canonical: "/menu" },
+  openGraph: {
+    title: "Menu | FruitZen",
+    description:
+      "The full FruitZen menu with prices — fresh and cold-pressed juices, smoothies, shakes, waffles, momos and combos in Kukatpally, Hyderabad.",
+    url: MENU_URL,
+  },
+};
+
+// schema.org Menu built from the same data that renders the page (lib/content.ts).
+// "₹100 / 130" → two Offers; every price in INR.
+function priceOffers(price: string) {
+  return (price.match(/\d+/g) ?? []).map((n) => ({
+    "@type": "Offer",
+    price: n,
+    priceCurrency: "INR",
+  }));
+}
+
+const menuJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Menu",
+  name: "FruitZen Menu",
+  url: MENU_URL,
+  inLanguage: "en-IN",
+  provider: { "@id": `${site.url}/#business` },
+  hasMenuSection: menuGroups.map((g) => ({
+    "@type": "MenuSection",
+    name: g.name,
+    hasMenuItem: g.items.map((it) => ({
+      "@type": "MenuItem",
+      name: it.name.replace(/\s*★/g, "").trim(),
+      ...(it.desc ? { description: it.desc } : {}),
+      offers: priceOffers(it.price),
+    })),
+  })),
 };
 
 export default function MenuPage() {
   return (
     <div className="min-h-screen bg-cream pt-28 pb-24 sm:pt-32">
+      <JsonLd data={menuJsonLd} />
       {/* Header */}
       <header className="mx-auto w-full max-w-6xl px-5 text-center sm:px-8">
         <Link

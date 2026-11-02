@@ -1,7 +1,6 @@
 "use client";
 
 import { Star, MapPin, CupSoda, Dumbbell } from "lucide-react";
-import { Counter } from "@/components/counter";
 import { Reveal, RevealGroup, RevealItem } from "@/components/reveal";
 
 const badges = [
@@ -11,10 +10,12 @@ const badges = [
   { icon: Dumbbell, label: "Near Fitness Centers", sub: "Gym-friendly menu" },
 ];
 
+// Factual, verifiable highlights (sourced from lib/business.ts + the menu) —
+// rendered as plain server-side text, no animated counters.
 const stats = [
-  { to: 50000, suffix: "+", label: "Freshly Served" },
-  { to: 12000, suffix: "+", label: "Happy Customers" },
-  { to: 6, suffix: "", label: "Product Categories" },
+  { value: "₹50", label: "Fresh juices from" },
+  { value: "9 am–11 pm", label: "Open every day" },
+  { value: "4", label: "Cold-pressed juices, no added sugar" },
 ];
 
 export function SocialProof() {
@@ -42,14 +43,14 @@ export function SocialProof() {
 
             <div className="my-6 h-px bg-gradient-to-r from-transparent via-leaf-200 to-transparent" />
 
-            {/* Animated counters */}
+            {/* Factual highlights (server-rendered, no counters) */}
             <div className="grid grid-cols-3 gap-2 sm:gap-4">
               {stats.map((s) => (
                 <div key={s.label} className="text-center">
-                  <p className="text-2xl font-extrabold tracking-tight text-gradient sm:text-5xl">
-                    <Counter to={s.to} suffix={s.suffix} />
+                  <p className="text-xl font-extrabold tracking-tight text-gradient sm:text-4xl">
+                    {s.value}
                   </p>
-                  <p className="mt-1 text-xs font-medium text-ink/55 sm:text-sm">
+                  <p className="mt-1 text-xs font-medium text-ink/55 sm:text-sm text-balance">
                     {s.label}
                   </p>
                 </div>
