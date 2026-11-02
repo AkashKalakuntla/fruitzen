@@ -69,8 +69,25 @@ export default function MenuPage() {
           Our Menu
         </h1>
         <p className="mx-auto mt-4 max-w-xl text-base leading-7 text-ink/60 text-balance">
-          All prices in ₹ · 350 ml unless noted · crafted fresh to order. Order on
-          Zomato &amp; Swiggy or dine in at {site.contact.address.line2}.
+          All prices in ₹ · 350 ml unless noted · crafted fresh to order. Order on{" "}
+          <a
+            href={site.contact.zomatoHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-semibold text-leaf-700 hover:underline"
+          >
+            Zomato
+          </a>{" "}
+          &amp;{" "}
+          <a
+            href={site.contact.swiggyHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-semibold text-leaf-700 hover:underline"
+          >
+            Swiggy
+          </a>{" "}
+          or dine in at {site.contact.address.line2}.
         </p>
       </header>
 

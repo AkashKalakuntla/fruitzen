@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Phone, AtSign, MapPin, MessageCircle } from "lucide-react";
+import { Phone, AtSign, MapPin, MessageCircle, ShoppingBag } from "lucide-react";
 import { Reveal } from "@/components/reveal";
 import { Button } from "@/components/ui/button";
 import { getResource } from "@/lib/resources";
@@ -14,6 +14,8 @@ export function Contact() {
     { icon: Phone, label: "Call", value: contact.phone, href: contact.phoneHref },
     { icon: MessageCircle, label: "WhatsApp", value: "Message us", href: contact.whatsappHref, external: true },
     { icon: AtSign, label: "Instagram", value: contact.instagram, href: contact.instagramHref, external: true },
+    { icon: ShoppingBag, label: "Swiggy", value: "Order now", href: contact.swiggyHref, external: true },
+    { icon: ShoppingBag, label: "Zomato", value: "Order now", href: contact.zomatoHref, external: true },
   ];
 
   return (

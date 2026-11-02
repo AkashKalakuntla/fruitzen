@@ -19,6 +19,9 @@ export const site = {
     website: "fruitzen.in",
     mapsHref:
       "https://www.google.com/maps/search/?api=1&query=FruitZen+Paparayadu+Nagar+Kukatpally+Hyderabad",
+    swiggyHref:
+      "https://www.swiggy.com/city/hyderabad/fruitzen-kukatpally-rest1428805",
+    zomatoHref: "https://www.zomato.com/hyderabad/fruitzen-1-kukatpally",
     address: {
       line1: "Paparayadu Nagar",
       line2: "Kukatpally",
