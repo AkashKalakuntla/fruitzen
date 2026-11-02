@@ -16,11 +16,12 @@ export const BUSINESS = {
     postalCode: "500072",
     addressCountry: "IN",
   },
-  // TODO(owner): copy the exact pin from Google Maps (right-click the pin → coordinates)
-  geo: null as null | { latitude: number; longitude: number },
+  // Exact pin from the FruitZen Google Maps listing.
+  geo: { latitude: 17.4937104, longitude: 78.4213695 } as { latitude: number; longitude: number } | null,
   sameAs: [
     "https://www.instagram.com/fruitzen.in/",
-    // TODO(owner): add Google Business Profile share link, Swiggy URL, Zomato URL
+    "https://www.google.com/maps?cid=9138060448527713805", // Google Business Profile
+    // TODO(owner): add Swiggy URL and Zomato URL
   ],
 };
 
