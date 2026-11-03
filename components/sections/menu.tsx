@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { Reveal, RevealGroup, RevealItem } from "@/components/reveal";
@@ -56,11 +57,22 @@ export function Menu() {
               <RevealItem key={cat.slug}>
                 <Link
                   href={`/menu#${cat.target}`}
-                  className={`group relative flex aspect-[4/3] flex-col justify-between overflow-hidden rounded-[1.6rem] bg-gradient-to-br ${tileGrad[cat.slug] ?? "from-leaf-400 to-leaf-600"} p-6 text-white shadow-lg shadow-black/5 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl`}
+                  className="group relative flex aspect-[4/3] flex-col justify-between overflow-hidden rounded-[1.6rem] p-6 text-white shadow-lg shadow-black/5 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl"
                 >
+                  {/* real food/drink photo (swap-in for owner photos: /public/menu/<slug>.webp) */}
+                  <Image
+                    src={`/menu/${cat.slug}.webp`}
+                    alt=""
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                  {/* brand colour wash over the photo */}
+                  <div className={`absolute inset-0 bg-gradient-to-br ${tileGrad[cat.slug] ?? "from-leaf-400 to-leaf-600"} opacity-[0.72]`} />
+                  {/* darken toward the bottom so the title stays crisp */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-black/5" />
                   {/* glossy sheen that lifts on hover */}
                   <div className="pointer-events-none absolute -right-10 -top-10 h-44 w-44 rounded-full bg-white/20 blur-2xl transition-all duration-500 group-hover:scale-125 group-hover:bg-white/30" />
-                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/15 to-transparent" />
 
                   <div className="relative flex items-start justify-between">
                     <span className="text-4xl drop-shadow-md transition-transform duration-500 group-hover:scale-110">

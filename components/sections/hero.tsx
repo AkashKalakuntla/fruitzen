@@ -86,7 +86,7 @@ export function Hero() {
           </p>
           <div className="h-rise mt-7 flex flex-wrap items-center justify-center gap-4">
             <Magnetic>
-              <Button href="/menu" size="lg">
+              <Button href="#menu" size="lg">
                 View Menu
               </Button>
             </Magnetic>
