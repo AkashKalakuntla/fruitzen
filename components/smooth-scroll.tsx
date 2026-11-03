@@ -31,6 +31,9 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
     const lenis = lenisRef.current?.lenis;
     const onScroll = () => ScrollTrigger.update();
     lenis?.on("scroll", onScroll);
+    // Expose for programmatic scrolls (e.g. hash navigation on /menu) so they
+    // go through Lenis instead of fighting its RAF loop.
+    if (lenis) (window as unknown as { __lenis?: unknown }).__lenis = lenis;
     return () => {
       gsap.ticker.remove(update);
       lenis?.off("scroll", onScroll);

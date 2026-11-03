@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { FullMenu } from "@/components/sections/full-menu";
+import { HashScroll } from "@/components/hash-scroll";
 import JsonLd from "@/components/JsonLd";
 import { menuGroups } from "@/lib/content";
 import { site } from "@/lib/site";
@@ -54,6 +55,7 @@ export default function MenuPage() {
   return (
     <div className="min-h-screen bg-cream pt-28 pb-24 sm:pt-32">
       <JsonLd data={menuJsonLd} />
+      <HashScroll />
       {/* Header */}
       <header className="mx-auto w-full max-w-6xl px-5 text-center sm:px-8">
         <Link
