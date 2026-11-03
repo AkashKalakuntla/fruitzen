@@ -50,6 +50,13 @@ export function About({ showColdPressLink = false }: { showColdPressLink?: boole
           scrollTrigger: { trigger: step, start: "top 82%" },
         });
       });
+
+      // subtle parallax depth on the store photo
+      gsap.to(".about-photo-img", {
+        yPercent: 12,
+        ease: "none",
+        scrollTrigger: { trigger: ".about-photo", start: "top bottom", end: "bottom top", scrub: true },
+      });
     },
     { scope: root },
   );
@@ -88,13 +95,13 @@ export function About({ showColdPressLink = false }: { showColdPressLink?: boole
         {/* Store photo */}
         <Reveal className="mt-12" delay={0.05}>
           <div className="relative mx-auto max-w-4xl overflow-hidden rounded-[2rem] shadow-2xl ring-1 ring-leaf-100">
-            <div className="relative aspect-[16/10] sm:aspect-[16/9]">
+            <div className="about-photo relative aspect-[16/10] sm:aspect-[16/9]">
               <Image
                 src={site.photos.storeInterior}
                 alt="Inside the FruitZen store in Kukatpally, Hyderabad"
                 fill
                 sizes="(max-width: 1024px) 100vw, 900px"
-                className="object-cover"
+                className="about-photo-img scale-[1.12] object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-leaf-950/40 to-transparent" />
               <span className="absolute bottom-4 left-5 inline-flex items-center gap-2 rounded-full bg-white/85 px-3 py-1.5 text-xs font-semibold text-ink backdrop-blur">
