@@ -3,12 +3,11 @@
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 
-// 3D is heavy — load it only on capable desktops, after mount, never for
-// reduced-motion users or small/low-core devices. The hero's aurora + grain
-// remain as the graceful fallback behind this.
-const JuiceScene = dynamic(() => import("./juice-scene"), { ssr: false });
+// WebGL fluid shader — loaded only on capable desktops, after mount. The hero's
+// aurora backdrop remains the graceful fallback for mobile / reduced-motion.
+const LiquidHero = dynamic(() => import("./liquid-hero"), { ssr: false });
 
-export function JuiceCanvas() {
+export function LiquidCanvas() {
   const [enabled, setEnabled] = useState(false);
 
   useEffect(() => {
@@ -21,8 +20,8 @@ export function JuiceCanvas() {
   if (!enabled) return null;
 
   return (
-    <div className="absolute inset-0 z-0">
-      <JuiceScene />
+    <div className="pointer-events-none absolute inset-0 z-0">
+      <LiquidHero />
     </div>
   );
 }

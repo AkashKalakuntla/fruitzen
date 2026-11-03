@@ -4,9 +4,8 @@ import Image from "next/image";
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ChevronDown, MapPin, MessageCircle, Star, Dumbbell } from "lucide-react";
-import { JuiceCanvas } from "@/components/three/juice-canvas";
+import { LiquidCanvas } from "@/components/three/liquid-canvas";
 import { JuiceCursor } from "@/components/juice-cursor";
-import { JuiceParticles } from "@/components/juice-particles";
 import { Magnetic } from "@/components/magnetic";
 import { Button } from "@/components/ui/button";
 import { easePremium } from "@/lib/motion";
@@ -28,23 +27,22 @@ export function Hero() {
       ref={ref}
       className="relative flex min-h-[100svh] flex-col items-center justify-center overflow-hidden bg-cream pt-28 pb-16 sm:pt-20"
     >
-      {/* Animated aurora backdrop (transform-only, reduced-motion safe) */}
+      {/* Animated aurora backdrop — the fallback for mobile / reduced-motion */}
       <div className="hero-aurora pointer-events-none absolute -inset-[14%] -z-20" />
-      {/* WebGL liquid-fruit scene (desktop only; aurora is the fallback) */}
-      <JuiceCanvas />
-      {/* Soft radial scrim so the centred copy always stays legible over the 3D */}
+      {/* WebGL fluid shader (desktop only) */}
+      <LiquidCanvas />
+      {/* Soft radial scrim keeps the centred wordmark + copy legible */}
       <div
         className="pointer-events-none absolute inset-0 z-[1]"
         style={{
           background:
-            "radial-gradient(42rem 34rem at 50% 46%, color-mix(in srgb, var(--color-cream) 72%, transparent), transparent 70%)",
+            "radial-gradient(40rem 32rem at 50% 48%, color-mix(in srgb, var(--color-cream) 60%, transparent), transparent 72%)",
         }}
       />
       {/* Film-grain texture for a premium, printed feel */}
       <div className="grain pointer-events-none absolute inset-0 z-[2]" />
 
-      {/* Ambient juice particles + cursor droplets */}
-      <JuiceParticles />
+      {/* Custom juice cursor */}
       <JuiceCursor />
 
       {/* Center content */}
