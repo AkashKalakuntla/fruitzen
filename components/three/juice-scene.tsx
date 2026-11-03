@@ -5,13 +5,14 @@ import { Float, MeshDistortMaterial, AdaptiveDpr } from "@react-three/drei";
 
 // Abstract "juice drops": fruit-coloured liquid spheres that wobble + drift.
 // No models, no photos — pure procedural geometry + materials.
+// Positioned to FRAME the centred hero copy (corners + sides, centre kept clear).
 const BLOBS = [
-  { color: "#fb923c", position: [-3.3, 1.3, -1], scale: 1.2, distort: 0.38, speed: 1.6 }, // orange
-  { color: "#22c55e", position: [3.2, 1.9, -2.5], scale: 1.5, distort: 0.32, speed: 1.3 }, // leaf
-  { color: "#fb6f92", position: [2.7, -1.7, 0], scale: 1.0, distort: 0.42, speed: 1.8 }, // melon
-  { color: "#facc15", position: [-2.9, -1.9, -1], scale: 0.8, distort: 0.36, speed: 2.0 }, // lemon
-  { color: "#a855f7", position: [0.4, 2.7, -3.5], scale: 0.95, distort: 0.3, speed: 1.2 }, // grape
-  { color: "#ef4444", position: [-0.7, -2.8, -2], scale: 0.7, distort: 0.45, speed: 2.1 }, // watermelon
+  { color: "#fb923c", position: [-5.4, 2.0, -1], scale: 1.2, distort: 0.38, speed: 1.6 }, // orange — top-left
+  { color: "#22c55e", position: [5.6, 2.1, -1.5], scale: 1.35, distort: 0.32, speed: 1.3 }, // leaf — top-right
+  { color: "#a855f7", position: [-2.4, 4.6, -6], scale: 0.7, distort: 0.3, speed: 1.2 }, // grape — far upper-left
+  { color: "#facc15", position: [-5.0, -2.4, -1], scale: 0.95, distort: 0.36, speed: 2.0 }, // lemon — bottom-left
+  { color: "#fb6f92", position: [5.4, -2.2, -0.5], scale: 1.1, distort: 0.42, speed: 1.8 }, // melon — bottom-right
+  { color: "#ef4444", position: [2.6, -4.8, -4.5], scale: 0.75, distort: 0.45, speed: 2.1 }, // watermelon — far lower-right
 ];
 
 function Blob({ color, position, scale, distort, speed }: (typeof BLOBS)[number]) {
@@ -36,7 +37,7 @@ export default function JuiceScene() {
   return (
     <Canvas
       dpr={[1, 1.6]}
-      camera={{ position: [0, 0, 8], fov: 42 }}
+      camera={{ position: [0, 0, 11], fov: 40 }}
       gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
     >
       <ambientLight intensity={0.9} />

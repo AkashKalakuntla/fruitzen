@@ -4,7 +4,6 @@ import Image from "next/image";
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ChevronDown, MapPin, MessageCircle, Star, Dumbbell } from "lucide-react";
-import { HeroOrbit } from "@/components/hero-orbit";
 import { JuiceCanvas } from "@/components/three/juice-canvas";
 import { JuiceCursor } from "@/components/juice-cursor";
 import { JuiceParticles } from "@/components/juice-particles";
@@ -33,11 +32,16 @@ export function Hero() {
       <div className="hero-aurora pointer-events-none absolute -inset-[14%] -z-20" />
       {/* WebGL liquid-fruit scene (desktop only; aurora is the fallback) */}
       <JuiceCanvas />
-      {/* Film-grain texture over the backdrop for a premium, printed feel */}
-      <div className="grain pointer-events-none absolute inset-0 z-0" />
-
-      {/* Hero Fruit Orbit System */}
-      <HeroOrbit progress={scrollYProgress} />
+      {/* Soft radial scrim so the centred copy always stays legible over the 3D */}
+      <div
+        className="pointer-events-none absolute inset-0 z-[1]"
+        style={{
+          background:
+            "radial-gradient(42rem 34rem at 50% 46%, color-mix(in srgb, var(--color-cream) 72%, transparent), transparent 70%)",
+        }}
+      />
+      {/* Film-grain texture for a premium, printed feel */}
+      <div className="grain pointer-events-none absolute inset-0 z-[2]" />
 
       {/* Ambient juice particles + cursor droplets */}
       <JuiceParticles />
