@@ -5,7 +5,6 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ChevronDown, MapPin, MessageCircle, Star, Dumbbell } from "lucide-react";
 import { JuiceCanvas } from "@/components/three/juice-canvas";
-import { JuiceWave } from "@/components/juice-wave";
 import { JuiceCursor } from "@/components/juice-cursor";
 import { JuiceParticles } from "@/components/juice-particles";
 import { Magnetic } from "@/components/magnetic";
@@ -47,9 +46,6 @@ export function Hero() {
       {/* Ambient juice particles + cursor droplets */}
       <JuiceParticles />
       <JuiceCursor />
-
-      {/* Flowing juice wave + bubbles along the base */}
-      <JuiceWave />
 
       {/* Center content */}
       <motion.div
@@ -160,7 +156,7 @@ export function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1 }}
-        className="absolute bottom-5 left-1/2 z-10 -translate-x-1/2 text-white/85 hover:text-white"
+        className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2 text-ink/40 hover:text-ink/70"
       >
         <motion.span
           animate={{ y: [0, 8, 0] }}
