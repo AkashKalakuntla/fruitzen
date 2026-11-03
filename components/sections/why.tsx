@@ -30,18 +30,26 @@ export function Why() {
                 className={featured ? "lg:row-span-2" : ""}
               >
                 <motion.article
-                  whileHover={{ y: -6 }}
+                  whileHover={{ y: -8 }}
                   transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                  className={`group relative h-full overflow-hidden rounded-card border border-leaf-100 bg-white p-7 shadow-sm transition-shadow hover:shadow-xl ${
+                  className={`group relative h-full overflow-hidden rounded-card border border-leaf-100 bg-white p-7 shadow-sm transition-shadow duration-300 hover:shadow-2xl ${
                     featured ? "lg:flex lg:flex-col lg:justify-between" : ""
                   }`}
                 >
-                  <div
-                    className="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full bg-leaf-100/70 blur-2xl transition-opacity group-hover:opacity-100"
-                  />
+                  {/* glow that blooms on hover */}
+                  <div className="pointer-events-none absolute -right-12 -top-12 h-36 w-36 rounded-full bg-leaf-200/60 blur-2xl transition-all duration-500 group-hover:scale-150 group-hover:bg-leaf-300/60" />
+                  {/* accent bar that sweeps in on hover */}
+                  <span className="pointer-events-none absolute inset-x-0 bottom-0 h-1 origin-left scale-x-0 bg-gradient-to-r from-leaf-500 via-leaf-400 to-orange-400 transition-transform duration-500 ease-out group-hover:scale-x-100" />
+
                   <div className="relative">
-                    <span className="grid h-14 w-14 place-items-center rounded-2xl bg-gradient-to-br from-leaf-500 to-leaf-700 text-white shadow-lg shadow-leaf-500/30 transition-transform group-hover:scale-110 group-hover:rotate-6">
-                      <Icon className="h-7 w-7" />
+                    {/* floating icon badge (continuous, disabled under reduced motion) */}
+                    <span
+                      className="inline-block animate-float"
+                      style={{ animationDelay: `${i * 0.7}s` }}
+                    >
+                      <span className="grid h-14 w-14 place-items-center rounded-2xl bg-gradient-to-br from-leaf-500 to-leaf-700 text-white shadow-lg shadow-leaf-500/30 transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-6">
+                        <Icon className="h-7 w-7" />
+                      </span>
                     </span>
                     <h3 className={`mt-5 font-bold text-ink ${featured ? "text-2xl" : "text-xl"}`}>
                       {f.title}
@@ -49,8 +57,8 @@ export function Why() {
                     <p className="mt-2 leading-7 text-ink/65">{f.body}</p>
                   </div>
                   {featured ? (
-                    <p className="relative mt-6 text-sm font-semibold text-leaf-600">
-                      The FruitZen standard →
+                    <p className="relative mt-6 font-serif text-lg leading-snug text-leaf-700/80">
+                      Freshness you can taste — in every single cup.
                     </p>
                   ) : null}
                 </motion.article>
