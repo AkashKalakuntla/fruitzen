@@ -17,7 +17,7 @@ const FRUITS = [
 
 function Fruit({ url, position, scale, speed }: (typeof FRUITS)[number]) {
   return (
-    <Float speed={speed} rotationIntensity={0.25} floatIntensity={1.4}>
+    <Float speed={speed} rotationIntensity={0.4} floatIntensity={2.4}>
       <Image
         url={url}
         position={position as [number, number, number]}

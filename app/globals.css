@@ -161,6 +161,17 @@ html {
   to { left: 160%; }
 }
 
+/* Flowing juice: a seamless horizontal wave loop + rising bubbles */
+@keyframes wave-x {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+@keyframes bubble-rise {
+  0%   { transform: translateY(12px) scale(0.5); opacity: 0; }
+  20%  { opacity: 0.8; }
+  100% { transform: translateY(-120px) scale(1); opacity: 0; }
+}
+
 /* Animated aurora backdrop — pans a soft multi-fruit gradient (transform only,
    so it stays GPU-cheap and avoids the repaint flicker of animating blur). */
 @keyframes aurora {
