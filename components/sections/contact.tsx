@@ -1,7 +1,8 @@
 import Link from "next/link";
-import { Phone, AtSign, MapPin, MessageCircle, ShoppingBag } from "lucide-react";
+import { Phone, AtSign, MapPin, MessageCircle } from "lucide-react";
 import { Reveal } from "@/components/reveal";
 import { Button } from "@/components/ui/button";
+import { SwiggyIcon, ZomatoIcon } from "@/components/brand-icons";
 import { getResource } from "@/lib/resources";
 import { site } from "@/lib/site";
 
@@ -11,11 +12,11 @@ export function Contact() {
   const showFaqLink = getResource("fruitzen-juice-bar-kukatpally-faq") !== null;
 
   const methods = [
-    { icon: Phone, label: "Call", value: contact.phone, href: contact.phoneHref },
-    { icon: MessageCircle, label: "WhatsApp", value: "Message us", href: contact.whatsappHref, external: true },
-    { icon: AtSign, label: "Instagram", value: contact.instagram, href: contact.instagramHref, external: true },
-    { icon: ShoppingBag, label: "Swiggy", value: "Order now", href: contact.swiggyHref, external: true },
-    { icon: ShoppingBag, label: "Zomato", value: "Order now", href: contact.zomatoHref, external: true },
+    { icon: Phone, label: "Call", value: contact.phone, href: contact.phoneHref, iconClass: "text-leaf-300" },
+    { icon: MessageCircle, label: "WhatsApp", value: "Message us", href: contact.whatsappHref, external: true, iconClass: "text-leaf-300" },
+    { icon: AtSign, label: "Instagram", value: contact.instagram, href: contact.instagramHref, external: true, iconClass: "text-leaf-300" },
+    { icon: SwiggyIcon, label: "Swiggy", value: "Order now", href: contact.swiggyHref, external: true, iconClass: "text-[#FC8019]" },
+    { icon: ZomatoIcon, label: "Zomato", value: "Order now", href: contact.zomatoHref, external: true, iconClass: "text-[#ff5666]" },
   ];
 
   return (
@@ -51,7 +52,7 @@ export function Contact() {
                       {...(m.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                       className="glass-dark group rounded-2xl p-4 transition-colors hover:bg-white/10"
                     >
-                      <m.icon className="h-5 w-5 text-leaf-300" />
+                      <m.icon className={`h-5 w-5 ${m.iconClass}`} />
                       <p className="mt-2 text-xs font-semibold uppercase tracking-wider text-white/50">
                         {m.label}
                       </p>

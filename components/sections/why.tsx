@@ -1,6 +1,8 @@
 "use client";
 
+import Link from "next/link";
 import { motion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
 import { Reveal, RevealGroup, RevealItem } from "@/components/reveal";
 import { iconMap } from "@/components/icons";
 import { whyFeatures } from "@/lib/content";
@@ -24,17 +26,13 @@ export function Why() {
           {whyFeatures.map((f, i) => {
             const Icon = iconMap[f.icon];
             const featured = i === 0;
-            return (
-              <RevealItem
-                key={f.title}
-                className={featured ? "lg:row-span-2" : ""}
-              >
+            const card = (
                 <motion.article
                   whileHover={{ y: -8 }}
                   transition={{ type: "spring", stiffness: 300, damping: 20 }}
                   className={`group relative h-full overflow-hidden rounded-card border border-leaf-100 bg-white p-7 shadow-sm transition-shadow duration-300 hover:shadow-2xl ${
                     featured ? "lg:flex lg:flex-col lg:justify-between" : ""
-                  }`}
+                  } ${f.href ? "cursor-pointer hover:border-leaf-300" : ""}`}
                 >
                   {/* glow that blooms on hover */}
                   <div className="pointer-events-none absolute -right-12 -top-12 h-36 w-36 rounded-full bg-leaf-200/60 blur-2xl transition-all duration-500 group-hover:scale-150 group-hover:bg-leaf-300/60" />
@@ -55,6 +53,12 @@ export function Why() {
                       {f.title}
                     </h3>
                     <p className="mt-2 leading-7 text-ink/65">{f.body}</p>
+                    {f.href && f.cta ? (
+                      <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-bold text-leaf-700 transition-all group-hover:text-leaf-800">
+                        {f.cta}
+                        <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                      </span>
+                    ) : null}
                   </div>
                   {featured ? (
                     <p className="relative mt-6 font-serif text-lg leading-snug text-leaf-700/80">
@@ -62,6 +66,19 @@ export function Why() {
                     </p>
                   ) : null}
                 </motion.article>
+            );
+            return (
+              <RevealItem
+                key={f.title}
+                className={featured ? "lg:row-span-2" : ""}
+              >
+                {f.href ? (
+                  <Link href={f.href} className="block h-full">
+                    {card}
+                  </Link>
+                ) : (
+                  card
+                )}
               </RevealItem>
             );
           })}

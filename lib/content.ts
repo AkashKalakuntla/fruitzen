@@ -309,6 +309,9 @@ export type WhyFeature = {
   icon: IconKey;
   title: string;
   body: string;
+  /** Optional in-page link + label when the card leads somewhere. */
+  href?: string;
+  cta?: string;
 };
 
 export const whyFeatures: WhyFeature[] = [
@@ -325,7 +328,9 @@ export const whyFeatures: WhyFeature[] = [
   {
     icon: "dumbbell",
     title: "Gym-Friendly Options",
-    body: "Protein shakes, recovery drinks and clean fuel built for athletes and fitness-first lifestyles.",
+    body: "Protein shakes, hydration drinks, oats, smoothies and cold-pressed juices — clean fuel built for athletes and fitness-first lifestyles.",
+    href: "#wellness",
+    cta: "See gym fuel",
   },
   {
     icon: "shield",
