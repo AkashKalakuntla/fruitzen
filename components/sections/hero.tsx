@@ -1,169 +1,123 @@
 "use client";
 
 import Image from "next/image";
-import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { ChevronDown, MapPin, MessageCircle, Star, Dumbbell } from "lucide-react";
-import { LiquidCanvas } from "@/components/three/liquid-canvas";
-import { JuiceCursor } from "@/components/juice-cursor";
+import { motion, useReducedMotion } from "framer-motion";
+import { MapPin, MessageCircle } from "lucide-react";
 import { Magnetic } from "@/components/magnetic";
 import { Button } from "@/components/ui/button";
 import { easePremium } from "@/lib/motion";
 import { site } from "@/lib/site";
 
-export function Hero() {
-  const ref = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start start", "end start"],
-  });
+const container = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.11, delayChildren: 0.15 } },
+};
+const item = {
+  hidden: { opacity: 0, y: 26 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.85, ease: easePremium } },
+};
 
-  const contentY = useTransform(scrollYProgress, [0, 1], [0, 160]);
-  const contentOpacity = useTransform(scrollYProgress, [0, 0.75], [1, 0]);
+export function Hero() {
+  const reduce = useReducedMotion();
 
   return (
     <section
       id="home"
-      ref={ref}
-      className="relative flex min-h-[100svh] flex-col items-center justify-center overflow-hidden bg-cream pt-28 pb-16 sm:pt-20"
+      className="relative flex min-h-[100svh] items-center overflow-hidden bg-cream"
     >
-      {/* Animated aurora backdrop — the fallback for mobile / reduced-motion */}
-      <div className="hero-aurora pointer-events-none absolute -inset-[14%] -z-20" />
-      {/* WebGL fluid shader (desktop only) */}
-      <LiquidCanvas />
-      {/* Soft radial scrim keeps the centred wordmark + copy legible */}
+      {/* Cinematic product video — a real orange-juice pour, studio lit */}
+      <video
+        className="absolute inset-0 h-full w-full object-cover"
+        style={{ objectPosition: "74% center" }}
+        autoPlay={!reduce}
+        loop={!reduce}
+        muted
+        playsInline
+        preload="metadata"
+        poster="/videos/juice-pour-poster.jpg"
+      >
+        <source src="/videos/juice-pour.mp4" type="video/mp4" />
+      </video>
+
+      {/* Cream wash: keeps the left clean for the copy, softens the edges */}
       <div
-        className="pointer-events-none absolute inset-0 z-[1]"
+        className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "radial-gradient(40rem 32rem at 50% 48%, color-mix(in srgb, var(--color-cream) 60%, transparent), transparent 72%)",
+            "linear-gradient(100deg, var(--color-cream) 0%, color-mix(in srgb, var(--color-cream) 90%, transparent) 32%, transparent 60%)",
         }}
       />
-      {/* Film-grain texture for a premium, printed feel */}
-      <div className="grain pointer-events-none absolute inset-0 z-[2]" />
+      {/* On phones the video becomes a soft backdrop so the copy stays clean */}
+      <div className="pointer-events-none absolute inset-0 bg-cream/45 lg:hidden" />
+      <div
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-56 lg:hidden"
+        style={{ background: "linear-gradient(to top, var(--color-cream) 18%, transparent)" }}
+      />
 
-      {/* Custom juice cursor */}
-      <JuiceCursor />
-
-      {/* Center content */}
-      <motion.div
-        style={{ y: contentY, opacity: contentOpacity }}
-        className="relative z-10 mx-auto max-w-5xl px-5 text-center"
-      >
+      {/* Content */}
+      <div className="relative z-10 mx-auto w-full max-w-7xl px-5 pt-24 sm:px-8 lg:pt-0">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: easePremium }}
+          variants={container}
+          initial="hidden"
+          animate="show"
+          className="max-w-xl text-center lg:text-left"
         >
-          <span className="inline-flex items-center gap-2 rounded-full bg-white/70 px-4 py-1.5 text-sm font-semibold text-leaf-700 shadow-sm ring-1 ring-leaf-200 backdrop-blur">
+          <motion.span
+            variants={item}
+            className="inline-flex items-center gap-2 rounded-full bg-white/70 px-4 py-1.5 text-sm font-semibold text-leaf-700 shadow-sm ring-1 ring-leaf-200 backdrop-blur"
+          >
             <span className="h-2 w-2 rounded-full bg-orange-500" />
             Fresh Juices · Cold-Pressed · Healthy Shots
-          </span>
+          </motion.span>
+
+          <motion.div variants={item}>
+            <Image
+              src="/fruitzen-logo.webp"
+              alt="FruitZen"
+              width={1600}
+              height={264}
+              priority
+              className="mx-auto mt-7 h-auto w-44 sm:w-52 lg:mx-0"
+            />
+          </motion.div>
+
+          <motion.h1
+            variants={item}
+            className="mt-6 text-3xl font-extrabold leading-[1.08] tracking-tight text-ink text-balance sm:text-4xl lg:text-5xl"
+          >
+            Fresh juices &amp; cold-pressed juice bar in Kukatpally, Hyderabad
+          </motion.h1>
+
+          <motion.p
+            variants={item}
+            className="mx-auto mt-5 max-w-md text-lg leading-8 text-ink/65 text-balance lg:mx-0"
+          >
+            Pressed to order from fruit sourced every morning — juices,
+            cold-pressed blends, shakes, waffles and more.
+          </motion.p>
+
+          <motion.div
+            variants={item}
+            className="mt-9 flex flex-wrap items-center justify-center gap-4 lg:justify-start"
+          >
+            <Magnetic>
+              <Button href="/menu" size="lg">
+                View Menu
+              </Button>
+            </Magnetic>
+            <Magnetic>
+              <Button href={site.contact.whatsappHref} variant="accent" size="lg">
+                <MessageCircle className="h-4 w-4" /> WhatsApp
+              </Button>
+            </Magnetic>
+            <Magnetic>
+              <Button href={site.contact.mapsHref} variant="outline" size="lg">
+                <MapPin className="h-4 w-4" /> Directions
+              </Button>
+            </Magnetic>
+          </motion.div>
         </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 40, filter: "blur(12px)" }}
-          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          transition={{ duration: 1, ease: easePremium, delay: 0.1 }}
-          className="mt-7"
-        >
-          <Image
-            src="/fruitzen-logo.webp"
-            alt="FruitZen — fresh juice bar in Kukatpally, Hyderabad"
-            width={1600}
-            height={264}
-            priority
-            className="mx-auto h-auto w-[60vw] sm:w-[min(82vw,760px)]"
-          />
-        </motion.div>
-
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: easePremium, delay: 0.2 }}
-          className="mx-auto mt-6 max-w-2xl text-2xl font-bold tracking-tight text-ink text-balance sm:text-3xl"
-        >
-          Fresh juices &amp; cold-pressed juice bar in Kukatpally, Hyderabad
-        </motion.h1>
-
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: easePremium, delay: 0.3 }}
-          className="mt-5 text-5xl font-extrabold leading-[0.95] tracking-tighter text-ink sm:text-7xl"
-        >
-          Fresh. Healthy. <span className="text-gradient animate-text-gradient">You.</span>
-        </motion.p>
-
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.45 }}
-          className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-ink/60 text-balance sm:text-xl"
-        >
-          Fresh juices, cold-pressed blends, shakes, mocktails, waffles and
-          healthy snacks — crafted daily in Kukatpally, Hyderabad.
-        </motion.p>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: easePremium, delay: 0.6 }}
-          className="mt-10 flex flex-wrap items-center justify-center gap-4"
-        >
-          <Magnetic>
-            <Button href="/menu" size="lg">
-              View Menu
-            </Button>
-          </Magnetic>
-          <Magnetic>
-            <Button href={site.contact.mapsHref} variant="outline" size="lg">
-              <MapPin className="h-4 w-4" /> Get Directions
-            </Button>
-          </Magnetic>
-          <Magnetic>
-            <Button href={site.contact.whatsappHref} variant="accent" size="lg">
-              <MessageCircle className="h-4 w-4" /> WhatsApp
-            </Button>
-          </Magnetic>
-        </motion.div>
-
-        {/* Trust badges directly below the CTAs */}
-        <motion.ul
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: easePremium, delay: 0.75 }}
-          className="mt-7 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm font-medium text-ink/55"
-        >
-          <li className="inline-flex items-center gap-1.5">
-            <Star className="h-4 w-4 text-orange-500" /> Trusted Local Favorite
-          </li>
-          <li className="inline-flex items-center gap-1.5">
-            <MapPin className="h-4 w-4 text-leaf-600" /> Kukatpally, Hyderabad
-          </li>
-          <li className="inline-flex items-center gap-1.5">
-            <Dumbbell className="h-4 w-4 text-leaf-600" /> Near Multiple Fitness Centers
-          </li>
-        </motion.ul>
-      </motion.div>
-
-      {/* Scroll cue */}
-      <motion.a
-        href="#social"
-        aria-label="Scroll down"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1 }}
-        className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2 text-ink/40 hover:text-ink/70"
-      >
-        <motion.span
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
-          className="block"
-        >
-          <ChevronDown className="h-7 w-7" />
-        </motion.span>
-      </motion.a>
+      </div>
     </section>
   );
 }
