@@ -5,6 +5,7 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ChevronDown, MapPin, MessageCircle, Star, Dumbbell } from "lucide-react";
 import { HeroOrbit } from "@/components/hero-orbit";
+import { JuiceCanvas } from "@/components/three/juice-canvas";
 import { JuiceCursor } from "@/components/juice-cursor";
 import { JuiceParticles } from "@/components/juice-particles";
 import { Magnetic } from "@/components/magnetic";
@@ -30,8 +31,10 @@ export function Hero() {
     >
       {/* Animated aurora backdrop (transform-only, reduced-motion safe) */}
       <div className="hero-aurora pointer-events-none absolute -inset-[14%] -z-20" />
+      {/* WebGL liquid-fruit scene (desktop only; aurora is the fallback) */}
+      <JuiceCanvas />
       {/* Film-grain texture over the backdrop for a premium, printed feel */}
-      <div className="grain pointer-events-none absolute inset-0 -z-10" />
+      <div className="grain pointer-events-none absolute inset-0 z-0" />
 
       {/* Hero Fruit Orbit System */}
       <HeroOrbit progress={scrollYProgress} />
