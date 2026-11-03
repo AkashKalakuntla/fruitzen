@@ -4,18 +4,18 @@ import type { ComponentProps, ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "shine inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-all duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-leaf-500 disabled:pointer-events-none disabled:opacity-50",
+  "juice-btn shine relative isolate inline-flex items-center justify-center gap-2 overflow-hidden rounded-full font-semibold transition-all duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-leaf-500 disabled:pointer-events-none disabled:opacity-50",
   {
     variants: {
       variant: {
         primary:
-          "bg-leaf-500 text-white shadow-lg shadow-leaf-500/30 hover:bg-leaf-600 hover:shadow-xl hover:shadow-leaf-500/40",
+          "bg-leaf-500 text-white shadow-lg shadow-leaf-500/30 hover:bg-leaf-600 hover:shadow-xl hover:shadow-leaf-500/40 [--juice:var(--color-leaf-800)]",
         accent:
-          "bg-orange-500 text-white shadow-lg shadow-orange-500/30 hover:bg-orange-600",
+          "bg-orange-500 text-white shadow-lg shadow-orange-500/30 hover:bg-orange-600 [--juice:var(--color-orange-700)]",
         outline:
-          "border-2 border-leaf-500/40 text-leaf-700 hover:border-leaf-500 hover:bg-leaf-50",
-        glass: "glass text-ink hover:bg-white/80",
-        ghost: "text-ink/70 hover:bg-leaf-50 hover:text-ink",
+          "border-2 border-leaf-500/40 text-leaf-700 hover:border-leaf-500 [--juice:var(--color-leaf-100)]",
+        glass: "glass text-ink hover:bg-white/80 [--juice:var(--color-leaf-100)]",
+        ghost: "text-ink/70 hover:bg-leaf-50 hover:text-ink [--juice:var(--color-leaf-100)]",
       },
       size: {
         md: "h-11 px-6 text-sm",
@@ -51,6 +51,9 @@ export function Button({
   ...props
 }: ButtonProps) {
   const classes = cn(buttonVariants({ variant, size }), className);
+  const label = (
+    <span className="relative z-10 inline-flex items-center gap-2">{children}</span>
+  );
 
   if (isPlainAnchor(href)) {
     const external = href.startsWith("http");
@@ -60,14 +63,14 @@ export function Button({
         className={classes}
         {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
       >
-        {children}
+        {label}
       </a>
     );
   }
 
   return (
     <Link href={href} className={classes} {...props}>
-      {children}
+      {label}
     </Link>
   );
 }
