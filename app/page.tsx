@@ -8,6 +8,7 @@ import { Wellness } from "@/components/sections/wellness";
 import { Gallery } from "@/components/sections/gallery";
 import { Partner } from "@/components/sections/partner";
 import { Contact } from "@/components/sections/contact";
+import { HashScroll } from "@/components/hash-scroll";
 import { getResource } from "@/lib/resources";
 
 export default function Home() {
@@ -17,6 +18,7 @@ export default function Home() {
 
   return (
     <>
+      <HashScroll />
       <Hero />
       <SocialProof />
       <Marquee />
