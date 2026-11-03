@@ -18,14 +18,12 @@ export function Wellness() {
       <div className="relative mx-auto w-full max-w-6xl px-5 sm:px-8">
         <div className="grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:items-center">
           <Reveal>
-            <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-widest text-leaf-300">
-              Gym & Wellness
+            <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-leaf-300 ring-1 ring-white/15">
+              <span className="h-1.5 w-1.5 rounded-full bg-orange-400" /> Gym &amp; Wellness
             </span>
-            <h2 className="mt-4 text-4xl font-bold sm:text-5xl text-balance">
-              Fuel Your Workout.{" "}
-              <span className="bg-gradient-to-r from-leaf-300 to-orange-400 bg-clip-text text-transparent">
-                Recover Better.
-              </span>
+            <h2 className="mt-5 text-4xl font-extrabold tracking-tight sm:text-5xl text-balance">
+              Fuel your workout.{" "}
+              <span className="font-serif font-medium text-orange-400">Recover better.</span>
             </h2>
             <p className="mt-5 max-w-md text-lg leading-8 text-white/70 text-balance">
               Located near Hyderabad&apos;s top gyms and studios, FruitZen is built

@@ -28,11 +28,12 @@ export function Contact() {
               <div className="pointer-events-none absolute -right-20 -top-20 h-72 w-72 rounded-full bg-orange-500/20 blur-3xl" />
 
               <div className="relative text-white">
-                <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-widest text-leaf-200">
-                  Come Visit
+                <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-leaf-200 ring-1 ring-white/15">
+                  <span className="h-1.5 w-1.5 rounded-full bg-orange-400" /> Come Visit
                 </span>
-                <h2 className="mt-4 text-4xl font-bold sm:text-5xl text-balance">
-                  Where is FruitZen in Kukatpally?
+                <h2 className="mt-5 text-4xl font-extrabold tracking-tight sm:text-5xl text-balance">
+                  Where is FruitZen in{" "}
+                  <span className="font-serif font-medium text-orange-400">Kukatpally?</span>
                 </h2>
                 <p className="mt-4 flex items-start gap-2 text-white/75">
                   <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-leaf-300" />
