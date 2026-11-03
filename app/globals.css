@@ -94,6 +94,13 @@ h1, h2, h3, .font-display {
   letter-spacing: -0.02em;
 }
 
+/* Editorial serif accent (italic), e.g. "form." — the brand's signature flourish */
+.font-serif {
+  font-family: var(--font-serif-family), Georgia, "Times New Roman", serif;
+  font-style: italic;
+  letter-spacing: -0.01em;
+}
+
 
 html {
   scroll-behavior: smooth;

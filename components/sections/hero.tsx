@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import { useRef } from "react";
-import { Fraunces } from "next/font/google";
 import gsap from "gsap";
 import { useReducedMotion } from "framer-motion";
 import { MapPin } from "lucide-react";
@@ -14,8 +13,6 @@ import { site } from "@/lib/site";
 // Swap the final Kling/Runway clip here — animation/layout stay unchanged.
 const VIDEO_SRC = "/videos/juice-pour.mp4";
 const VIDEO_POSTER = "/videos/juice-pour-poster.jpg";
-
-const serif = Fraunces({ subsets: ["latin"], weight: ["500", "600"], style: ["italic"] });
 
 export function Hero() {
   const root = useRef<HTMLElement>(null);
@@ -81,7 +78,7 @@ export function Hero() {
           />
           <h1 className="h-rise mt-5 text-4xl font-extrabold leading-[1.05] tracking-tight text-ink sm:text-5xl">
             Freshness, in its finest{" "}
-            <span className={`${serif.className} font-medium italic text-orange-500`}>form.</span>
+            <span className={`font-serif font-medium text-orange-500`}>form.</span>
           </h1>
           <p className="h-rise mt-4 max-w-md text-base leading-7 text-ink/65 text-balance sm:text-lg">
             Fresh juices, vibrant blends and feel-good moments. Made to order in

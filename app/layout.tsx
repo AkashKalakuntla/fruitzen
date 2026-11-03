@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Sora } from "next/font/google";
+import { Inter, Sora, Fraunces } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
@@ -19,6 +19,14 @@ const body = Inter({
 const display = Sora({
   variable: "--font-display-family",
   weight: ["600", "700", "800"],
+  subsets: ["latin"],
+});
+
+// Editorial serif accent (the "form." look) — used site-wide for section accents.
+const serif = Fraunces({
+  variable: "--font-serif-family",
+  weight: ["400", "500", "600"],
+  style: ["italic"],
   subsets: ["latin"],
 });
 
@@ -68,7 +76,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${body.variable} ${display.variable} h-full`}>
+    <html lang="en" className={`${body.variable} ${display.variable} ${serif.variable} h-full`}>
       <body className="flex min-h-full flex-col">
         <JsonLd data={localBusinessJsonLd()} />
         <SmoothScroll>

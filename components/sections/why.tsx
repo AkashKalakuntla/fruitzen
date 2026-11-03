@@ -11,11 +11,12 @@ export function Why() {
       <div className="pointer-events-none absolute right-0 top-1/4 h-72 w-72 rounded-full bg-leaf-200/40 blur-3xl" />
       <div className="mx-auto w-full max-w-6xl px-5 sm:px-8">
         <Reveal className="mx-auto max-w-2xl text-center">
-          <span className="inline-flex items-center gap-2 rounded-full bg-leaf-100 px-3 py-1 text-xs font-semibold uppercase tracking-widest text-leaf-700">
-            Why FruitZen
+          <span className="inline-flex items-center gap-2 rounded-full bg-white/70 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-leaf-700 shadow-sm ring-1 ring-leaf-200">
+            <span className="h-1.5 w-1.5 rounded-full bg-orange-500" /> Why FruitZen
           </span>
-          <h2 className="mt-4 text-4xl font-bold text-ink sm:text-5xl text-balance">
-            Why choose <span className="text-gradient">FruitZen</span> in Kukatpally?
+          <h2 className="mt-5 text-4xl font-extrabold tracking-tight text-ink sm:text-5xl text-balance">
+            Why choose FruitZen in{" "}
+            <span className="font-serif font-medium text-orange-500">Kukatpally?</span>
           </h2>
         </Reveal>
 

@@ -58,11 +58,12 @@ export function About({ showColdPressLink = false }: { showColdPressLink?: boole
     <section id="about" className="relative overflow-hidden py-24 sm:py-32">
       <div ref={root} className="mx-auto w-full max-w-5xl px-5 sm:px-8">
         <Reveal className="mx-auto max-w-2xl text-center">
-          <span className="inline-flex items-center gap-2 rounded-full bg-leaf-100 px-3 py-1 text-xs font-semibold uppercase tracking-widest text-leaf-700">
-            Our Craft
+          <span className="inline-flex items-center gap-2 rounded-full bg-white/70 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-leaf-700 shadow-sm ring-1 ring-leaf-200">
+            <span className="h-1.5 w-1.5 rounded-full bg-orange-500" /> Our Craft
           </span>
-          <h2 className="mt-4 text-4xl font-bold text-ink sm:text-5xl text-balance">
-            What makes FruitZen juice <span className="text-gradient">fresh?</span>
+          <h2 className="mt-5 text-4xl font-extrabold tracking-tight text-ink sm:text-5xl text-balance">
+            What makes FruitZen juice{" "}
+            <span className="font-serif font-medium text-orange-500">fresh?</span>
           </h2>
           <p className="mt-5 text-lg leading-8 text-ink/60 text-balance">
             FruitZen is a modern wellness beverage brand in the heart of
