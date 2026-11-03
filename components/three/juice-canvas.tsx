@@ -21,7 +21,7 @@ export function JuiceCanvas() {
   if (!enabled) return null;
 
   return (
-    <div className="pointer-events-none absolute inset-0 z-0">
+    <div className="absolute inset-0 z-0">
       <JuiceScene />
     </div>
   );
