@@ -10,11 +10,13 @@ export function Reveal({
   className,
   delay = 0,
   variants = fadeUp,
+  amount,
 }: {
   children: ReactNode;
   className?: string;
   delay?: number;
   variants?: Variants;
+  amount?: "some" | "all" | number;
 }) {
   return (
     <motion.div
@@ -22,7 +24,7 @@ export function Reveal({
       variants={variants}
       initial="hidden"
       whileInView="visible"
-      viewport={viewportOnce}
+      viewport={amount != null ? { once: true, amount } : viewportOnce}
       transition={{ delay }}
     >
       {children}
@@ -36,11 +38,13 @@ export function RevealGroup({
   className,
   stagger = 0.12,
   delay = 0,
+  amount,
 }: {
   children: ReactNode;
   className?: string;
   stagger?: number;
   delay?: number;
+  amount?: "some" | "all" | number;
 }) {
   return (
     <motion.div
@@ -48,7 +52,7 @@ export function RevealGroup({
       variants={staggerContainer(stagger, delay)}
       initial="hidden"
       whileInView="visible"
-      viewport={viewportOnce}
+      viewport={amount != null ? { once: true, amount } : viewportOnce}
     >
       {children}
     </motion.div>
