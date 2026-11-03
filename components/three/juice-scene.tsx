@@ -1,34 +1,30 @@
 "use client";
 
 import { Canvas } from "@react-three/fiber";
-import { Float, MeshDistortMaterial, AdaptiveDpr } from "@react-three/drei";
+import { Float, Image, AdaptiveDpr } from "@react-three/drei";
+import { Suspense } from "react";
 
-// Abstract "juice drops": fruit-coloured liquid spheres that wobble + drift.
-// No models, no photos — pure procedural geometry + materials.
-// Positioned to FRAME the centred hero copy (corners + sides, centre kept clear).
-const BLOBS = [
-  { color: "#fb923c", position: [-5.4, 2.0, -1], scale: 1.2, distort: 0.38, speed: 1.6 }, // orange — top-left
-  { color: "#22c55e", position: [5.6, 2.1, -1.5], scale: 1.35, distort: 0.32, speed: 1.3 }, // leaf — top-right
-  { color: "#a855f7", position: [-2.4, 4.6, -6], scale: 0.7, distort: 0.3, speed: 1.2 }, // grape — far upper-left
-  { color: "#facc15", position: [-5.0, -2.4, -1], scale: 0.95, distort: 0.36, speed: 2.0 }, // lemon — bottom-left
-  { color: "#fb6f92", position: [5.4, -2.2, -0.5], scale: 1.1, distort: 0.42, speed: 1.8 }, // melon — bottom-right
-  { color: "#ef4444", position: [2.6, -4.8, -4.5], scale: 0.75, distort: 0.45, speed: 2.1 }, // watermelon — far lower-right
+// Real fruit cut-outs floating as tilting planes in 3D — recognizable fruit
+// WITH depth, parallax and drift. Positioned to frame the centred hero copy.
+const FRUITS = [
+  { url: "/fruit/orange.webp", position: [-5.6, 2.1, -1], scale: [3.0, 3.0], speed: 1.5 }, // top-left
+  { url: "/fruit/kiwi.webp", position: [5.7, 2.2, -1.5], scale: [3.0, 3.0], speed: 1.3 }, // top-right
+  { url: "/fruit/pomegranate.webp", position: [-4.6, 4.9, -7], scale: [1.7, 1.7], speed: 1.2 }, // far upper-left
+  { url: "/fruit/lemon.webp", position: [-5.2, -2.6, -1], scale: [2.6, 2.6], speed: 1.9 }, // bottom-left
+  { url: "/fruit/watermelon.webp", position: [5.0, -2.7, -0.8], scale: [3.0, 2.0], speed: 1.7 }, // bottom-right
+  { url: "/fruit/mint-sprig.webp", position: [4.2, 4.7, -6], scale: [1.9, 1.9], speed: 2.0 }, // far upper-right
 ];
 
-function Blob({ color, position, scale, distort, speed }: (typeof BLOBS)[number]) {
+function Fruit({ url, position, scale, speed }: (typeof FRUITS)[number]) {
   return (
-    <Float speed={speed} rotationIntensity={0.7} floatIntensity={1.5}>
-      <mesh position={position as [number, number, number]} scale={scale}>
-        <sphereGeometry args={[1, 96, 96]} />
-        <MeshDistortMaterial
-          color={color}
-          distort={distort}
-          speed={1.4}
-          roughness={0.12}
-          metalness={0.25}
-          envMapIntensity={0.6}
-        />
-      </mesh>
+    <Float speed={speed} rotationIntensity={0.25} floatIntensity={1.4}>
+      <Image
+        url={url}
+        position={position as [number, number, number]}
+        scale={scale as [number, number]}
+        transparent
+        toneMapped={false}
+      />
     </Float>
   );
 }
@@ -40,13 +36,11 @@ export default function JuiceScene() {
       camera={{ position: [0, 0, 11], fov: 40 }}
       gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
     >
-      <ambientLight intensity={0.9} />
-      <directionalLight position={[5, 6, 5]} intensity={1.6} color="#ffffff" />
-      <directionalLight position={[-6, -2, 2]} intensity={0.8} color="#bbf7d0" />
-      <pointLight position={[0, 0, 6]} intensity={1.1} color="#fde68a" />
-      {BLOBS.map((b, i) => (
-        <Blob key={i} {...b} />
-      ))}
+      <Suspense fallback={null}>
+        {FRUITS.map((f, i) => (
+          <Fruit key={i} {...f} />
+        ))}
+      </Suspense>
       <AdaptiveDpr pixelated={false} />
     </Canvas>
   );
