@@ -1,49 +1,27 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
-import { useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useReducedMotion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
-import { useGSAP } from "@/lib/use-gsap";
-import { Reveal } from "@/components/reveal";
+import { Reveal, RevealGroup, RevealItem } from "@/components/reveal";
 import { Button } from "@/components/ui/button";
 import { menu, menuGroups } from "@/lib/content";
-import { img } from "@/lib/images";
+import { site } from "@/lib/site";
+
+const groupBySlug = Object.fromEntries(menuGroups.map((g) => [g.slug, g]));
 
 // Real "from ₹X" per category, derived from the itemised menu (no invented prices).
-const priceFrom: Record<string, number | null> = Object.fromEntries(
-  menuGroups.map((g) => {
-    const nums = g.items.flatMap((it) => (it.price.match(/\d+/g) ?? []).map(Number));
-    return [g.slug, nums.length ? Math.min(...nums) : null];
-  }),
-);
+function fromPrice(slug: string): number | null {
+  const g = groupBySlug[slug];
+  if (!g) return null;
+  const nums = g.items.flatMap((it) => (it.price.match(/\d+/g) ?? []).map(Number));
+  return nums.length ? Math.min(...nums) : null;
+}
 
 export function Menu() {
-  const root = useRef<HTMLDivElement>(null);
-  const reduce = useReducedMotion();
-
-  useGSAP(
-    () => {
-      if (reduce) return;
-      gsap.registerPlugin(ScrollTrigger);
-      gsap.from(".menu-card", {
-        y: 52,
-        opacity: 0,
-        duration: 0.8,
-        stagger: 0.09,
-        ease: "power3.out",
-        scrollTrigger: { trigger: ".menu-grid", start: "top 82%" },
-      });
-    },
-    { scope: root },
-  );
-
   return (
-    <section id="menu" className="relative py-24 sm:py-32">
-      <div ref={root} className="mx-auto w-full max-w-6xl px-5 sm:px-8">
+    <section id="menu" className="relative overflow-hidden py-24 sm:py-32">
+      <div className="pointer-events-none absolute -right-24 top-20 h-80 w-80 rounded-full bg-orange-200/30 blur-[120px]" />
+      <div className="relative mx-auto w-full max-w-6xl px-5 sm:px-8">
         <Reveal className="mx-auto max-w-2xl text-center">
           <span className="inline-flex items-center gap-2 rounded-full bg-white/70 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-orange-600 shadow-sm ring-1 ring-orange-200">
             <span className="h-1.5 w-1.5 rounded-full bg-orange-500" /> The Menu
@@ -53,62 +31,65 @@ export function Menu() {
             <span className="font-serif font-medium text-orange-500">menu?</span>
           </h2>
           <p className="mt-4 text-lg leading-8 text-ink/60 text-balance">
-            Juices, smoothies, shakes, mojitos, waffles, momos and combos — all
-            crafted fresh to order.
+            120+ items across juices, smoothies, shakes, mojitos, waffles, momos
+            and combos — all crafted fresh to order.
           </p>
         </Reveal>
 
-        <div className="menu-grid mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <RevealGroup className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3" stagger={0.07}>
           {menu.map((cat) => {
-            const from = priceFrom[cat.target];
+            const from = fromPrice(cat.target);
+            const items = (groupBySlug[cat.target]?.items ?? []).slice(0, 4);
             return (
+              <RevealItem key={cat.slug}>
               <Link
-                key={cat.slug}
                 href={`/menu#${cat.target}`}
-                className="menu-card group relative block aspect-[4/5] overflow-hidden rounded-[1.75rem] shadow-md ring-1 ring-black/5 transition-shadow duration-500 hover:shadow-2xl hover:shadow-leaf-900/15 sm:aspect-[5/6]"
+                className="group relative block overflow-hidden rounded-[1.5rem] bg-white/80 p-6 ring-1 ring-black/5 backdrop-blur transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-leaf-900/10"
               >
-              <Image
-                src={img(cat.photo, 700)}
-                alt={`${cat.name} at FruitZen, Kukatpally`}
-                fill
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                className="object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.08]"
-              />
-              {/* readability + a flavour-tinted wash that intensifies on hover */}
-              <div className="absolute inset-0 bg-gradient-to-t from-leaf-950/90 via-leaf-950/25 to-transparent" />
-              <div
-                className={`absolute inset-0 bg-gradient-to-tr ${cat.gradient} opacity-0 mix-blend-overlay transition-opacity duration-500 group-hover:opacity-60`}
-              />
+                <div className={`absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r ${cat.gradient}`} />
 
-              {/* from-price chip */}
-              {from != null ? (
-                <span className="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1 text-xs font-bold text-ink shadow-sm backdrop-blur">
-                  from ₹{from}
-                </span>
-              ) : null}
-              <span className="absolute right-4 top-4 grid h-9 w-9 place-items-center rounded-full bg-white/15 text-white backdrop-blur transition-all duration-300 group-hover:bg-orange-500 group-hover:rotate-45">
-                <ArrowUpRight className="h-5 w-5" />
-              </span>
+                <div className="flex items-start justify-between">
+                  <span className="text-3xl">{cat.emoji}</span>
+                  {from != null ? (
+                    <span className="rounded-full bg-leaf-50 px-3 py-1 text-xs font-bold text-leaf-700 ring-1 ring-leaf-100">
+                      from ₹{from}
+                    </span>
+                  ) : null}
+                </div>
 
-              <div className="absolute inset-x-0 bottom-0 p-6">
-                <span className="text-3xl drop-shadow">{cat.emoji}</span>
-                <h3 className="mt-2 text-xl font-bold text-white drop-shadow sm:text-2xl">
-                  {cat.name}
-                </h3>
-                <p className="mt-1 text-sm leading-6 text-white/75">{cat.blurb}</p>
-                {/* slides in on hover */}
-                <span className="mt-3 inline-flex max-h-0 items-center gap-1.5 overflow-hidden text-sm font-semibold text-orange-300 opacity-0 transition-all duration-400 group-hover:max-h-8 group-hover:opacity-100">
-                  View items <ArrowUpRight className="h-4 w-4" />
+                <h3 className="mt-4 text-xl font-bold text-ink">{cat.name}</h3>
+
+                <ul className="mt-3 space-y-1.5">
+                  {items.map((it) => (
+                    <li key={it.name} className="flex items-center justify-between gap-3 text-sm">
+                      <span className="flex items-center gap-2 text-ink/65">
+                        <span className="h-1 w-1 shrink-0 rounded-full bg-orange-400" />
+                        {it.name}
+                      </span>
+                      <span className="shrink-0 font-semibold text-ink/50">{it.price}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <span className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-leaf-700 transition-colors group-hover:text-orange-600">
+                  See all {cat.name.toLowerCase()}
+                  <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </span>
-              </div>
-            </Link>
+              </Link>
+              </RevealItem>
             );
           })}
-        </div>
+        </RevealGroup>
 
-        <Reveal className="mt-12 text-center">
+        <Reveal className="mt-12 flex flex-wrap items-center justify-center gap-4 text-center">
           <Button href="/menu" size="lg">
             View Full Menu →
+          </Button>
+          <Button href={site.contact.swiggyHref} variant="accent" size="lg">
+            Order on Swiggy
+          </Button>
+          <Button href={site.contact.zomatoHref} variant="outline" size="lg">
+            Order on Zomato
           </Button>
         </Reveal>
       </div>
