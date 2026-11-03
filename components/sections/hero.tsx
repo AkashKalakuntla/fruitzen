@@ -4,49 +4,30 @@ import Image from "next/image";
 import { useRef } from "react";
 import { Fraunces } from "next/font/google";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useReducedMotion } from "framer-motion";
 import { MapPin } from "lucide-react";
 import { useGSAP } from "@/lib/use-gsap";
 import { Magnetic } from "@/components/magnetic";
 import { Button } from "@/components/ui/button";
 import { site } from "@/lib/site";
 
+// Swap the final Kling/Runway clip here — animation/layout stay unchanged.
+const VIDEO_SRC = "/videos/juice-pour.mp4";
+const VIDEO_POSTER = "/videos/juice-pour-poster.jpg";
+
 const serif = Fraunces({ subsets: ["latin"], weight: ["500", "600"], style: ["italic"] });
 
 export function Hero() {
   const root = useRef<HTMLElement>(null);
+  const reduce = useReducedMotion();
 
   useGSAP(
     () => {
-      gsap.registerPlugin(ScrollTrigger);
-      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       if (reduce) return;
-
-      // cinematic entrance
-      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
-      tl.from(".hero-rise", { y: 34, opacity: 0, duration: 0.9, stagger: 0.12 }, 0.1)
-        // the juice reveals bottom→top like it's filling, with a soft settle
-        .fromTo(
-          ".hero-product",
-          { clipPath: "inset(100% 0% 0% 0%)", scale: 1.06, opacity: 0 },
-          { clipPath: "inset(0% 0% 0% 0%)", scale: 1, opacity: 1, duration: 1.3, ease: "power2.out" },
-          0.2,
-        )
-        .from(".hero-glow", { opacity: 0, scale: 0.8, duration: 1.2 }, 0.1);
-
-      // gentle idle float + scroll parallax on the product
-      gsap.to(".hero-product", {
-        y: -14,
-        duration: 3.4,
-        ease: "sine.inOut",
-        yoyo: true,
-        repeat: -1,
-      });
-      gsap.to(".hero-product-wrap", {
-        yPercent: -12,
-        ease: "none",
-        scrollTrigger: { trigger: root.current, start: "top top", end: "bottom top", scrub: true },
-      });
+      gsap
+        .timeline({ defaults: { ease: "power3.out" } })
+        .from(".h-rise", { y: 30, opacity: 0, duration: 0.9, stagger: 0.12 }, 0.35)
+        .from(".h-scrim", { opacity: 0, duration: 1.1 }, 0);
     },
     { scope: root },
   );
@@ -55,41 +36,58 @@ export function Hero() {
     <section
       ref={root}
       id="home"
-      className="relative flex min-h-[100svh] items-center overflow-hidden bg-cream"
+      className="relative h-[100svh] min-h-[620px] w-full overflow-hidden bg-cream"
     >
-      {/* warm ivory + soft green sunlit ambiance (recreates the reference stage) */}
-      <div className="pointer-events-none absolute inset-0 -z-10">
-        <div
-          className="hero-glow absolute right-0 top-0 h-[55rem] w-[55rem] translate-x-1/4 -translate-y-1/4 rounded-full opacity-70 blur-[130px]"
-          style={{ background: "radial-gradient(circle, color-mix(in srgb, var(--color-leaf-300) 65%, transparent), transparent 70%)" }}
-        />
-        <div
-          className="absolute -left-20 bottom-0 h-[34rem] w-[34rem] rounded-full opacity-60 blur-[150px]"
-          style={{ background: "radial-gradient(circle, color-mix(in srgb, var(--color-orange-300) 40%, transparent), transparent 70%)" }}
-        />
-      </div>
+      {/* Full-bleed cinematic product video — the central visual */}
+      <video
+        className="absolute inset-0 h-full w-full object-cover object-[64%_42%] lg:object-[center_38%]"
+        autoPlay={!reduce}
+        loop={!reduce}
+        muted
+        playsInline
+        preload="metadata"
+        poster={VIDEO_POSTER}
+      >
+        <source src={VIDEO_SRC} type="video/mp4" />
+      </video>
 
-      <div className="mx-auto grid w-full max-w-7xl items-center gap-10 px-5 pt-24 pb-16 sm:px-8 lg:grid-cols-[1.05fr_1fr] lg:gap-8 lg:pt-0 lg:pb-0">
-        {/* LEFT — copy */}
-        <div className="order-2 text-center lg:order-1 lg:text-left">
-          <span className="hero-rise inline-flex items-center gap-2 rounded-full bg-white/70 px-4 py-1.5 text-sm font-semibold text-leaf-700 shadow-sm ring-1 ring-leaf-200 backdrop-blur">
-            <span className="h-2 w-2 rounded-full bg-orange-500" />
-            Fresh Juices · Cold-Pressed · Healthy Shots
-          </span>
+      {/* Cinematic treatment: soft edge vignette + a cream base that both makes
+          the lockup legible and transitions seamlessly into the next section */}
+      <div
+        className="h-scrim pointer-events-none absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(130% 100% at 50% 22%, transparent 52%, color-mix(in srgb, var(--color-cream) 45%, transparent) 100%)",
+        }}
+      />
+      <div
+        className="h-scrim pointer-events-none absolute inset-x-0 bottom-0 h-[58%]"
+        style={{
+          background:
+            "linear-gradient(to top, var(--color-cream) 12%, color-mix(in srgb, var(--color-cream) 86%, transparent) 44%, transparent)",
+        }}
+      />
 
-          <h1 className="hero-rise mt-7 text-5xl font-extrabold leading-[1.02] tracking-tight text-ink sm:text-6xl lg:text-7xl">
-            Freshness,
-            <br />
-            in its finest{" "}
+      {/* Brand lockup — lower third, centred; the glass owns the upper frame */}
+      <div className="absolute inset-x-0 bottom-0 z-10 px-5 pb-12 sm:pb-16">
+        <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
+          <Image
+            src="/fruitzen-logo.webp"
+            alt="FruitZen"
+            width={1600}
+            height={264}
+            priority
+            className="h-rise h-auto w-40 drop-shadow-[0_2px_18px_rgba(255,255,255,0.6)] sm:w-48"
+          />
+          <h1 className="h-rise mt-5 text-4xl font-extrabold leading-[1.05] tracking-tight text-ink sm:text-5xl">
+            Freshness, in its finest{" "}
             <span className={`${serif.className} font-medium italic text-orange-500`}>form.</span>
           </h1>
-
-          <p className="hero-rise mx-auto mt-6 max-w-md text-lg leading-8 text-ink/65 text-balance lg:mx-0">
+          <p className="h-rise mt-4 max-w-md text-base leading-7 text-ink/65 text-balance sm:text-lg">
             Fresh juices, vibrant blends and feel-good moments. Made to order in
             Kukatpally, Hyderabad.
           </p>
-
-          <div className="hero-rise mt-9 flex flex-wrap items-center justify-center gap-4 lg:justify-start">
+          <div className="h-rise mt-7 flex flex-wrap items-center justify-center gap-4">
             <Magnetic>
               <Button href="/menu" size="lg">
                 View Menu
@@ -100,34 +98,6 @@ export function Hero() {
                 <MapPin className="h-4 w-4" /> Directions
               </Button>
             </Magnetic>
-          </div>
-
-          <div className="hero-rise mt-8 flex items-center justify-center gap-3 text-sm text-ink/55 lg:justify-start">
-            <span className="inline-flex items-center gap-1.5 font-medium text-ink/70">
-              <span className="text-orange-500">★</span> Trusted Local Favorite
-            </span>
-            <span className="h-4 w-px bg-ink/15" />
-            <span>Kukatpally, Hyderabad</span>
-          </div>
-        </div>
-
-        {/* RIGHT — photoreal product, feathered into the stage */}
-        <div className="hero-product-wrap order-1 lg:order-2">
-          <div className="relative mx-auto aspect-square w-full max-w-[34rem]">
-            <Image
-              src="/brand/hero-juice.webp"
-              alt="A glass of fresh FruitZen orange juice with a splash, surrounded by oranges"
-              fill
-              priority
-              sizes="(max-width: 1024px) 90vw, 34rem"
-              className="hero-product object-contain"
-              style={{
-                WebkitMaskImage:
-                  "radial-gradient(ellipse 72% 72% at 50% 52%, #000 62%, transparent 93%)",
-                maskImage:
-                  "radial-gradient(ellipse 72% 72% at 50% 52%, #000 62%, transparent 93%)",
-              }}
-            />
           </div>
         </div>
       </div>
