@@ -161,6 +161,29 @@ html {
   to { left: 160%; }
 }
 
+/* Animated aurora backdrop — pans a soft multi-fruit gradient (transform only,
+   so it stays GPU-cheap and avoids the repaint flicker of animating blur). */
+@keyframes aurora {
+  0%, 100% { transform: translate3d(-4%, -2%, 0) scale(1.06); }
+  50%      { transform: translate3d(4%, 3%, 0) scale(1.16); }
+}
+@utility hero-aurora {
+  background:
+    radial-gradient(42rem 42rem at 12% 14%, color-mix(in srgb, var(--color-orange-300) 40%, transparent), transparent 60%),
+    radial-gradient(40rem 40rem at 86% 22%, color-mix(in srgb, var(--color-leaf-300) 50%, transparent), transparent 62%),
+    radial-gradient(38rem 38rem at 44% 94%, color-mix(in srgb, var(--color-melon) 30%, transparent), transparent 60%);
+  filter: blur(44px);
+  animation: aurora 22s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* Film-grain overlay for premium texture (tiny inline SVG noise). */
+@utility grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.35;
+  mix-blend-mode: soft-light;
+}
+
 /* Subtle dotted texture for dark sections */
 @utility bg-dots {
   background-image: radial-gradient(color-mix(in srgb, white 10%, transparent) 1px, transparent 1px);

@@ -28,13 +28,10 @@ export function Hero() {
       ref={ref}
       className="relative flex min-h-[100svh] flex-col items-center justify-center overflow-hidden bg-cream pt-28 pb-16 sm:pt-20"
     >
-      {/* Large blurred fruit-color glows for depth (static — animating huge
-          blurred elements causes repaint flicker) */}
-      <div className="pointer-events-none absolute inset-0 -z-20">
-        <div className="absolute -left-[10%] top-[6%] h-[42rem] w-[42rem] rounded-full bg-orange-300/30 blur-[140px]" />
-        <div className="absolute right-[2%] top-[20%] h-[40rem] w-[40rem] rounded-full bg-leaf-300/40 blur-[150px]" />
-        <div className="absolute bottom-[-12%] left-[28%] h-[38rem] w-[38rem] rounded-full bg-melon/25 blur-[150px]" />
-      </div>
+      {/* Animated aurora backdrop (transform-only, reduced-motion safe) */}
+      <div className="hero-aurora pointer-events-none absolute -inset-[14%] -z-20" />
+      {/* Film-grain texture over the backdrop for a premium, printed feel */}
+      <div className="grain pointer-events-none absolute inset-0 -z-10" />
 
       {/* Hero Fruit Orbit System */}
       <HeroOrbit progress={scrollYProgress} />
@@ -88,9 +85,9 @@ export function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: easePremium, delay: 0.3 }}
-          className="mt-6 text-3xl font-semibold tracking-tight text-ink/85 sm:text-4xl"
+          className="mt-5 text-5xl font-extrabold leading-[0.95] tracking-tighter text-ink sm:text-7xl"
         >
-          Fresh. Healthy. <span className="text-orange-500">You.</span>
+          Fresh. Healthy. <span className="text-gradient animate-text-gradient">You.</span>
         </motion.p>
 
         <motion.p

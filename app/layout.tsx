@@ -4,6 +4,7 @@ import "./globals.css";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { ScrollProgress } from "@/components/scroll-progress";
+import { SmoothScroll } from "@/components/smooth-scroll";
 import JsonLd from "@/components/JsonLd";
 import { localBusinessJsonLd } from "@/lib/business";
 import { site } from "@/lib/site";
@@ -70,10 +71,12 @@ export default function RootLayout({
     <html lang="en" className={`${body.variable} ${display.variable} h-full`}>
       <body className="flex min-h-full flex-col">
         <JsonLd data={localBusinessJsonLd()} />
-        <ScrollProgress />
-        <Navbar />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        <SmoothScroll>
+          <ScrollProgress />
+          <Navbar />
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </SmoothScroll>
       </body>
     </html>
   );
