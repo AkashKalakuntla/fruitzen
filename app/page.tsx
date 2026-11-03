@@ -6,6 +6,7 @@ import { Why } from "@/components/sections/why";
 import { Menu } from "@/components/sections/menu";
 import { Wellness } from "@/components/sections/wellness";
 import { Gallery } from "@/components/sections/gallery";
+import { Partner } from "@/components/sections/partner";
 import { Contact } from "@/components/sections/contact";
 import { getResource } from "@/lib/resources";
 
@@ -24,6 +25,7 @@ export default function Home() {
       <Menu />
       <Wellness />
       <Gallery />
+      <Partner />
       <Contact />
     </>
   );
