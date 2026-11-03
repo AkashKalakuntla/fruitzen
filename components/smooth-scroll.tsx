@@ -25,15 +25,19 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
   }, []);
 
   useEffect(() => {
-    const update = (time: number) => lenisRef.current?.lenis?.raf(time * 1000);
+    const update = (time: number) => {
+      const lenis = lenisRef.current?.lenis;
+      lenis?.raf(time * 1000);
+      // Expose for programmatic scrolls (e.g. hash navigation on /menu) so they
+      // go through Lenis instead of fighting its RAF loop. Set each frame so it
+      // is reliably present as soon as Lenis is running.
+      if (lenis) (window as unknown as { __lenis?: unknown }).__lenis = lenis;
+    };
     gsap.ticker.add(update);
     gsap.ticker.lagSmoothing(0);
     const lenis = lenisRef.current?.lenis;
     const onScroll = () => ScrollTrigger.update();
     lenis?.on("scroll", onScroll);
-    // Expose for programmatic scrolls (e.g. hash navigation on /menu) so they
-    // go through Lenis instead of fighting its RAF loop.
-    if (lenis) (window as unknown as { __lenis?: unknown }).__lenis = lenis;
     return () => {
       gsap.ticker.remove(update);
       lenis?.off("scroll", onScroll);

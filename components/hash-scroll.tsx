@@ -5,46 +5,59 @@ import { useEffect } from "react";
 /**
  * Reliably scrolls to the element named by the URL hash on the menu page.
  *
- * Why this exists:
+ * Why this is defensive:
  *  - Browser scroll-restoration can win over a cross-route hash navigation
- *    (e.g. arriving from the homepage tiles), leaving you where you last were.
- *  - A malformed hash like `#waffles#waffles` has no matching element, so the
+ *    (arriving from the homepage tiles), leaving you where you last were.
+ *  - A malformed hash like `#waffles#waffles` matches no element, so the
  *    native jump silently does nothing. We sanitise to the first segment.
- *  - The target group reveals with motion, so we retry across a few frames
- *    until it is in the DOM, then jump (respecting each group's scroll-mt).
+ *  - With Lenis smooth-scroll active, a single programmatic jump right after a
+ *    route change uses Lenis's *stale* dimensions and overshoots (to the
+ *    footer). So instead of trusting one jump, we measure the target's real
+ *    position each frame and nudge toward it until it's actually in place.
  */
+const NAV_OFFSET = 96; // keep the group heading clear of the fixed navbar
+
+type Lenis = {
+  scrollTo: (t: number, o?: { immediate?: boolean }) => void;
+  resize?: () => void;
+};
+
 export function HashScroll() {
   useEffect(() => {
+    let raf = 0;
+
     function scrollToHash() {
       const raw = window.location.hash.replace(/^#+/, "");
       if (!raw) return;
       const id = decodeURIComponent(raw.split("#")[0]); // tolerate double-hash
       if (!id) return;
 
-      let tries = 0;
-      const attempt = () => {
+      const lenis = (window as unknown as { __lenis?: Lenis }).__lenis;
+      lenis?.resize?.(); // refresh scroll bounds after the route change
+
+      let frames = 0;
+      const settle = () => {
         const el = document.getElementById(id);
         if (!el) {
-          if (tries++ < 20) requestAnimationFrame(attempt);
+          if (frames++ < 40) raf = requestAnimationFrame(settle);
           return;
         }
-        const lenis = (window as unknown as { __lenis?: { scrollTo: (t: HTMLElement, o?: { offset?: number; immediate?: boolean }) => void } }).__lenis;
-        if (lenis) {
-          // Lenis lands accurately and won't be overridden by its own RAF loop.
-          lenis.scrollTo(el, { offset: -96, immediate: true });
-        } else {
-          const y = window.scrollY + el.getBoundingClientRect().top - 96;
-          window.scrollTo({ top: Math.max(0, y) });
+        const delta = el.getBoundingClientRect().top - NAV_OFFSET;
+        if (Math.abs(delta) > 2) {
+          const target = Math.max(0, window.scrollY + delta);
+          if (lenis?.scrollTo) lenis.scrollTo(target, { immediate: true });
+          else window.scrollTo(0, target);
+          if (frames++ < 40) raf = requestAnimationFrame(settle); // converge
         }
       };
-      attempt();
+      settle();
     }
 
-    // Defer past first paint so streamed content is present.
     const t = setTimeout(scrollToHash, 60);
     window.addEventListener("hashchange", scrollToHash);
     return () => {
       clearTimeout(t);
+      cancelAnimationFrame(raf);
       window.removeEventListener("hashchange", scrollToHash);
     };
   }, []);
