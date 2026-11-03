@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { FullMenu } from "@/components/sections/full-menu";
+import { Partner } from "@/components/sections/partner";
 import { HashScroll } from "@/components/hash-scroll";
 import JsonLd from "@/components/JsonLd";
 import { menuGroups } from "@/lib/content";
@@ -97,6 +98,9 @@ export default function MenuPage() {
       <main className="mx-auto mt-14 w-full max-w-6xl px-5 sm:px-8">
         <FullMenu />
       </main>
+
+      {/* Franchise / bulk & party orders / events */}
+      <Partner />
     </div>
   );
 }
