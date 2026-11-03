@@ -8,8 +8,8 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Sprout, Sparkles, HeartPulse, ArrowDown } from "lucide-react";
 import { Reveal } from "@/components/reveal";
+import { iconMap } from "@/components/icons";
 import { timeline } from "@/lib/content";
-import { img } from "@/lib/images";
 import { site } from "@/lib/site";
 
 const pillars = [
@@ -40,16 +40,6 @@ export function About({ showColdPressLink = false }: { showColdPressLink?: boole
           },
         },
       );
-
-      gsap.utils.toArray<HTMLElement>(".tl-step").forEach((step) => {
-        gsap.from(step, {
-          opacity: 0,
-          y: 40,
-          duration: 0.8,
-          ease: "power3.out",
-          scrollTrigger: { trigger: step, start: "top 82%" },
-        });
-      });
 
       // subtle parallax depth on the store photo
       gsap.to(".about-photo-img", {
@@ -119,47 +109,48 @@ export function About({ showColdPressLink = false }: { showColdPressLink?: boole
           </div>
 
           <div className="space-y-12">
-            {timeline.map((step, i) => (
-              <div
-                key={step.title}
-                className={`tl-step relative pl-16 sm:w-1/2 sm:pl-0 ${
-                  i % 2 === 0
-                    ? "sm:pr-12 sm:text-right"
-                    : "sm:ml-auto sm:pl-12"
-                }`}
-              >
-                {/* node */}
-                <span
-                  className={`absolute left-6 top-3 z-10 grid h-6 w-6 -translate-x-1/2 place-items-center rounded-full bg-gradient-to-br from-leaf-500 to-leaf-700 text-[10px] font-bold text-white shadow-md ring-4 ring-cream sm:left-auto ${
-                    i % 2 === 0 ? "sm:-right-3 sm:translate-x-1/2" : "sm:-left-3 sm:-translate-x-1/2"
+            {timeline.map((step, i) => {
+              const Icon = iconMap[step.icon];
+              const right = i % 2 === 0;
+              return (
+                <div
+                  key={step.title}
+                  className={`tl-step relative pl-16 sm:w-1/2 sm:pl-0 ${
+                    right ? "sm:pr-12 sm:text-right" : "sm:ml-auto sm:pl-12"
                   }`}
                 >
-                  {i + 1}
-                </span>
-                <div className="overflow-hidden rounded-card glass shadow-md">
-                  <div className="relative h-36 w-full">
-                    <Image
-                      src={img(step.photo, 600)}
-                      alt={step.title}
-                      fill
-                      sizes="(max-width: 768px) 100vw, 400px"
-                      className="object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-leaf-950/45 to-transparent" />
-                    <span className="absolute left-4 top-3 rounded-full bg-white/85 px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest text-orange-600 backdrop-blur">
-                      {step.tag}
-                    </span>
-                  </div>
-                  <div className="p-6 text-left">
-                    <h3 className="text-2xl font-bold text-ink">{step.title}</h3>
-                    <p className="mt-2 text-sm leading-6 text-ink/65">{step.body}</p>
-                  </div>
+                  {/* node */}
+                  <span
+                    className={`absolute left-6 top-6 z-10 grid h-6 w-6 -translate-x-1/2 place-items-center rounded-full bg-gradient-to-br from-leaf-500 to-leaf-700 text-[10px] font-bold text-white shadow-md ring-4 ring-cream sm:left-auto sm:top-7 ${
+                      right ? "sm:-right-3 sm:translate-x-1/2" : "sm:-left-3 sm:-translate-x-1/2"
+                    }`}
+                  >
+                    {i + 1}
+                  </span>
+                  <Reveal>
+                    <div className="group rounded-card glass p-6 shadow-md transition-shadow duration-300 hover:shadow-xl">
+                      <div
+                        className={`inline-flex items-center gap-3 ${
+                          right ? "sm:flex-row-reverse" : ""
+                        }`}
+                      >
+                        <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-leaf-500 to-leaf-700 text-white shadow-lg shadow-leaf-500/30 transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-6">
+                          <Icon className="h-6 w-6" />
+                        </span>
+                        <span className="rounded-full bg-leaf-50 px-3 py-1 text-[11px] font-bold uppercase tracking-widest text-leaf-700">
+                          {step.tag}
+                        </span>
+                      </div>
+                      <h3 className="mt-4 text-2xl font-bold text-ink">{step.title}</h3>
+                      <p className="mt-2 text-sm leading-6 text-ink/65">{step.body}</p>
+                    </div>
+                  </Reveal>
+                  {i < timeline.length - 1 ? (
+                    <ArrowDown className="mx-auto mt-3 h-5 w-5 text-leaf-300 sm:hidden" />
+                  ) : null}
                 </div>
-                {i < timeline.length - 1 ? (
-                  <ArrowDown className="mx-auto mt-3 h-5 w-5 text-leaf-300 sm:hidden" />
-                ) : null}
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
 

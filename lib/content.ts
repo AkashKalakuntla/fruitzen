@@ -362,6 +362,7 @@ export type TimelineStep = {
   title: string;
   body: string;
   photo: PhotoKey;
+  icon: IconKey;
 };
 
 export const timeline: TimelineStep[] = [
@@ -370,24 +371,28 @@ export const timeline: TimelineStep[] = [
     title: "Hand-picked daily",
     body: "We source fresh fruit every morning and choose it for peak ripeness — nothing sits around.",
     photo: "mangoPile",
+    icon: "leaf",
   },
   {
     tag: "Cold Press",
     title: "Pressed for nutrients",
     body: "Premium cold-press extraction locks in maximum nutrients, colour and natural flavour.",
     photo: "greenJuice",
+    icon: "droplets",
   },
   {
     tag: "Crafted",
     title: "Made when you order",
     body: "Every juice, shake and mocktail is prepared fresh the moment you order it.",
     photo: "mocktail",
+    icon: "sparkles",
   },
   {
     tag: "Experience",
     title: "Clean & consistent",
     body: "Spotless preparation and the same great taste, on every single visit.",
     photo: "orangeJuice",
+    icon: "heart",
   },
 ];
 
@@ -452,8 +457,8 @@ export type GalleryItem = { caption: string } & (
 
 export const galleryItems: GalleryItem[] = [
   { kind: "local", src: "/photos/store-interior.webp", caption: "Our Store" },
-  { kind: "photo", photo: "cafe", caption: "Store Interior" },
-  { kind: "placeholder", icon: "blend", caption: "Cold Press Equipment" },
+  { kind: "local", src: "/menu/shakes.webp", caption: "Thick Shakes" },
+  { kind: "local", src: "/menu/smoothies.webp", caption: "Smoothies" },
   { kind: "photo", photo: "waffle", caption: "Waffles" },
   { kind: "photo", photo: "orangeJuice", caption: "Juices" },
   { kind: "photo", photo: "mocktail", caption: "Mocktails" },
