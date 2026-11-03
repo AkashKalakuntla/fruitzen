@@ -24,10 +24,8 @@ export function Navbar() {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         className={cn(
-          "flex w-full max-w-6xl items-center justify-between rounded-full px-4 py-2.5 transition-all duration-300 sm:px-5",
-          scrolled
-            ? "glass shadow-lg shadow-leaf-900/5"
-            : "bg-transparent",
+          "glass flex w-full max-w-6xl items-center justify-between rounded-full px-4 py-2.5 transition-all duration-300 sm:px-5",
+          scrolled ? "shadow-lg shadow-leaf-900/10" : "shadow-md shadow-black/5",
         )}
       >
         <Logo />

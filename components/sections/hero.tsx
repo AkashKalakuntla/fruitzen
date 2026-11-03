@@ -10,7 +10,7 @@ import { site } from "@/lib/site";
 
 const container = {
   hidden: {},
-  show: { transition: { staggerChildren: 0.11, delayChildren: 0.15 } },
+  show: { transition: { staggerChildren: 0.1, delayChildren: 0.12 } },
 };
 const item = {
   hidden: { opacity: 0, y: 26 },
@@ -23,50 +23,27 @@ export function Hero() {
   return (
     <section
       id="home"
-      className="relative flex min-h-[100svh] items-center overflow-hidden bg-cream"
+      className="relative overflow-hidden bg-leaf-950 text-white"
     >
-      {/* Cinematic product video — a real orange-juice pour, studio lit */}
-      <video
-        className="absolute inset-0 h-full w-full object-cover"
-        style={{ objectPosition: "74% center" }}
-        autoPlay={!reduce}
-        loop={!reduce}
-        muted
-        playsInline
-        preload="metadata"
-        poster="/videos/juice-pour-poster.jpg"
-      >
-        <source src="/videos/juice-pour.mp4" type="video/mp4" />
-      </video>
+      {/* warm studio glow behind the product */}
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute right-[6%] top-[18%] h-[42rem] w-[42rem] rounded-full bg-orange-500/20 blur-[150px]" />
+        <div className="absolute -left-[12%] bottom-[-10%] h-[38rem] w-[38rem] rounded-full bg-leaf-500/15 blur-[160px]" />
+      </div>
 
-      {/* Cream wash: keeps the left clean for the copy, softens the edges */}
-      <div
-        className="pointer-events-none absolute inset-0"
-        style={{
-          background:
-            "linear-gradient(100deg, var(--color-cream) 0%, color-mix(in srgb, var(--color-cream) 90%, transparent) 32%, transparent 60%)",
-        }}
-      />
-      {/* On phones the video becomes a soft backdrop so the copy stays clean */}
-      <div className="pointer-events-none absolute inset-0 bg-cream/45 lg:hidden" />
-      <div
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-56 lg:hidden"
-        style={{ background: "linear-gradient(to top, var(--color-cream) 18%, transparent)" }}
-      />
-
-      {/* Content */}
-      <div className="relative z-10 mx-auto w-full max-w-7xl px-5 pt-24 sm:px-8 lg:pt-0">
+      <div className="relative mx-auto grid min-h-[100svh] w-full max-w-7xl items-center gap-12 px-5 py-28 sm:px-8 lg:grid-cols-[1.05fr_1fr] lg:gap-10 lg:py-0">
+        {/* Left — brand + copy */}
         <motion.div
           variants={container}
           initial="hidden"
           animate="show"
-          className="max-w-xl text-center lg:text-left"
+          className="order-2 text-center lg:order-1 lg:text-left"
         >
           <motion.span
             variants={item}
-            className="inline-flex items-center gap-2 rounded-full bg-white/70 px-4 py-1.5 text-sm font-semibold text-leaf-700 shadow-sm ring-1 ring-leaf-200 backdrop-blur"
+            className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 text-sm font-semibold text-leaf-200 ring-1 ring-white/15 backdrop-blur"
           >
-            <span className="h-2 w-2 rounded-full bg-orange-500" />
+            <span className="h-2 w-2 rounded-full bg-orange-400" />
             Fresh Juices · Cold-Pressed · Healthy Shots
           </motion.span>
 
@@ -77,20 +54,20 @@ export function Hero() {
               width={1600}
               height={264}
               priority
-              className="mx-auto mt-7 h-auto w-44 sm:w-52 lg:mx-0"
+              className="mx-auto mt-7 h-auto w-44 drop-shadow-[0_2px_20px_rgba(0,0,0,0.35)] sm:w-52 lg:mx-0"
             />
           </motion.div>
 
           <motion.h1
             variants={item}
-            className="mt-6 text-3xl font-extrabold leading-[1.08] tracking-tight text-ink text-balance sm:text-4xl lg:text-5xl"
+            className="mt-6 text-4xl font-extrabold leading-[1.05] tracking-tight text-balance sm:text-5xl lg:text-6xl"
           >
             Fresh juices &amp; cold-pressed juice bar in Kukatpally, Hyderabad
           </motion.h1>
 
           <motion.p
             variants={item}
-            className="mx-auto mt-5 max-w-md text-lg leading-8 text-ink/65 text-balance lg:mx-0"
+            className="mx-auto mt-5 max-w-md text-lg leading-8 text-white/65 text-balance lg:mx-0"
           >
             Pressed to order from fruit sourced every morning — juices,
             cold-pressed blends, shakes, waffles and more.
@@ -111,11 +88,37 @@ export function Hero() {
               </Button>
             </Magnetic>
             <Magnetic>
-              <Button href={site.contact.mapsHref} variant="outline" size="lg">
+              <Button href={site.contact.mapsHref} variant="glass" size="lg">
                 <MapPin className="h-4 w-4" /> Directions
               </Button>
             </Magnetic>
           </motion.div>
+        </motion.div>
+
+        {/* Right — the product: a vibrant juice-pour spotlight */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.94, y: 20 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ duration: 1.1, ease: easePremium, delay: 0.15 }}
+          className="order-1 lg:order-2"
+        >
+          <div className="relative mx-auto aspect-[4/5] w-full max-w-[26rem] overflow-hidden rounded-[2.25rem] shadow-2xl shadow-black/50 ring-1 ring-white/15">
+            <video
+              className="absolute inset-0 h-full w-full object-cover"
+              style={{ objectPosition: "66% center" }}
+              autoPlay={!reduce}
+              loop={!reduce}
+              muted
+              playsInline
+              preload="metadata"
+              poster="/videos/juice-pour-poster.jpg"
+            >
+              <source src="/videos/juice-pour.mp4" type="video/mp4" />
+            </video>
+            {/* inner edge + subtle top sheen for a premium framed look */}
+            <div className="pointer-events-none absolute inset-0 rounded-[2.25rem] ring-1 ring-inset ring-white/20" />
+            <div className="pointer-events-none absolute inset-x-0 top-0 h-1/3 bg-gradient-to-b from-white/10 to-transparent" />
+          </div>
         </motion.div>
       </div>
     </section>
