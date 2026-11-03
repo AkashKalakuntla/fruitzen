@@ -28,12 +28,12 @@ export function SocialProof() {
             <RevealGroup className="grid grid-cols-2 gap-3 lg:grid-cols-4 sm:gap-4" stagger={0.08}>
               {badges.map((b) => (
                 <RevealItem key={b.label}>
-                  <div className="flex h-full items-center gap-3 rounded-2xl bg-white/70 px-4 py-3 ring-1 ring-leaf-100 transition-shadow hover:shadow-md">
+                  <div className="flex h-full flex-col items-start gap-2.5 rounded-2xl bg-white/70 p-4 ring-1 ring-leaf-100 transition-shadow hover:shadow-md sm:flex-row sm:items-center sm:gap-3">
                     <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-leaf-100 text-leaf-700">
                       <b.icon className="h-5 w-5" />
                     </span>
                     <div className="text-left">
-                      <p className="text-sm font-bold leading-tight text-ink">{b.label}</p>
+                      <p className="text-sm font-bold leading-snug text-ink text-balance">{b.label}</p>
                       <p className="mt-0.5 text-xs text-ink/50">{b.sub}</p>
                     </div>
                   </div>
@@ -47,7 +47,7 @@ export function SocialProof() {
             <div className="grid grid-cols-3 gap-2 sm:gap-4">
               {stats.map((s) => (
                 <div key={s.label} className="text-center">
-                  <p className="text-xl font-extrabold tracking-tight text-gradient sm:text-4xl">
+                  <p className="whitespace-nowrap text-lg font-extrabold tracking-tight text-gradient sm:text-4xl">
                     {s.value}
                   </p>
                   <p className="mt-1 text-xs font-medium text-ink/55 sm:text-sm text-balance">
